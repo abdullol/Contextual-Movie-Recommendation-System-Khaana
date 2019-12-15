@@ -1,0 +1,82 @@
+﻿@model Movie_Recommendation_System.Areas.Admin.Models.CinemaShowtimes
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="~/Vendor/AdminAsset/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<!-- bootstrap datepicker -->
+<link rel="stylesheet" href="~/Vendor/AdminAsset/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<!-- Select2 -->
+<link rel="stylesheet" href="~/Vendor/AdminAsset/bower_components/select2/dist/css/select2.min.css">
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet" href="~/Vendor/AdminAsset/plugins/timepicker/bootstrap-timepicker.min.css">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="margin">
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-6 margin">
+                    <label>@Html.LabelFor(model => model.CinemaInstance.CinemaName)</label>
+                    @Html.DropDownList("CinemaList", ViewBag.CinemaList as SelectList, new { @class = "form-control select2" })
+                    @Html.ValidationMessageFor(model => model.CinemaId)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-6 margin">
+                    <label>@Html.LabelFor(model => model.MoviesInstance.MovieName)</label>
+                    @Html.DropDownList("MovieList", ViewBag.MovieList as SelectList, new { @class = "form-control select2" })
+                    @Html.ValidationMessageFor(model => model.MoviesId)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-6 margin">
+                    @Html.Label("Movie Showday")
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="ShowDay" name="ShowDay">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <!-- time Picker -->
+                <div class="col-md-offset-3 col-md-6 margin">
+                    <div class="bootstrap-timepicker">
+                        <div class="form-group">
+                            <label>Movie Showtime</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="text" class="form-control ShowTime" id="ShowTime" name="ShowTime">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary" id="Submit" name="Submit" value="Submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        //Date range picker
+        $('#ShowDay').datepicker()
+        //multiselect
+        $('.select2').select2()
+        //Timepicker
+        $('.ShowTime').timepicker()
+    })
+</script>

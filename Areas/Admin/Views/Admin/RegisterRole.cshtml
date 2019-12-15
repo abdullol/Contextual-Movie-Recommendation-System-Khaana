@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "RegisterRole";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("RegisterRole", "Admin", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-offset-1 form-horizontal col-md-10">
+            <h4 style="text-align:center">Generate Roles</h4>
+            <hr />
+            <div class="margin">
+                <label class="control-label">Role Name</label>
+                <input type="text" class="form-control" name="RoleName" />
+            </div>
+            <div class="margin">
+                <div>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

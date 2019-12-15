@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity
+@*user-end-partialView*@
+@if (Request.IsAuthenticated)
+    {
+
+        if (User.IsInRole("SuperAdmin"))
+        {
+            <li id="menu-item-284" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-284">
+                <a href="#">@User.Identity.GetUserName()</a>
+                <ul class="sub-menu">
+                    <li id="menu-item-302" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-302"><a href="/Areas/Admin/Admin/Index">Admin Panel</a></li>
+                    @using (Html.BeginForm("LogOff", "Account",  FormMethod.Post, new { id = "logoutform" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <li id="menu-item-299" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-299"><a href="javascript:document.getElementById('logoutform').submit()">Sign Out</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        if (!User.IsInRole("SuperAdmin"))
+        {
+            <li id="menu-item-284" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-284">
+                <a href="#">@User.Identity.GetUserName()</a>
+                <ul class="sub-menu">
+                    <li id="menu-item-302" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-302"><a href="@Url.Action("UserProfile", "User")">Profile</a></li>
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutform" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <li id="menu-item-299" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-299"><a href="javascript:document.getElementById('logoutform').submit()">Sign Out</a></li>
+                    }
+                </ul>
+            </li>
+        }
+    }
+    else
+    {
+        <li id="menu-item-285" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-285">
+            <a href="@Url.Action("Login", "Account")">SIGN IN</a>
+        </li>
+    }

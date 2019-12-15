@@ -1,0 +1,105 @@
+﻿@model Movie_Recommendation_System.Areas.Admin.Models.Movies
+@{
+    ViewBag.Title = "GetMovie";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+    var url = Request.Url.AbsolutePath;
+}
+
+
+<section class="main-content amy-movie single-movie layout-right  no-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="page-content">
+
+                    <article id="post-96" class="post-96 amy_movie type-amy_movie status-publish amy_genre-comedy amy_genre-drama amy_genre-magic amy_actor-alexander-cattly amy_actor-greta-garbo amy_director-grace-belly">
+                        <div class="entry-top">
+                            <div class="entry-poster">
+                                <img width="204" height="350" src="@Html.DisplayFor(item => item.MoviePoster)" class="attachment-204x350 size-204x350" alt="">
+                            </div>
+                            <div class="entry-info">
+
+                                <h1 class="entry-title p-name" itemprop="name headline"><a href="index.html" rel="bookmark" class="u-url url" itemprop="url">@Html.DisplayFor(item => item.MovieName)</a></h1>
+                                <div class="entry-pg">
+                                    <span class="pg">@Html.DisplayFor(item => item.MovieRating)</span>
+
+                                    <span class="duration">
+                                        <i class="fa fa-clock-o"></i>
+                                        @Html.DisplayFor(item => item.MovieDuration)
+                                    </span>
+                                </div>
+
+                                <ul class="info-list">
+                                    <li>
+                                        <label>Actor:</label>
+                                        <span>
+                                            @Html.DisplayFor(item => item.Actor)
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <label>Director:</label>
+                                        <span>
+                                            @Html.DisplayFor(item => item.Director)
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <label>Genre:</label>
+                                        <span>
+                                            @Html.DisplayFor(item => item.MovieGenre)
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <label>Release:</label>
+                                        <span>@Html.DisplayFor(item => item.ReleaseDate)</span>
+                                    </li>
+
+                                    <li>
+                                        <label>IMDB Rating:</label>
+                                        <span>@Html.DisplayFor(item => item.MovieRating)</span>
+                                    </li>
+
+                                </ul>
+
+                                <div class="entry-action">
+                                    @Html.Partial("_VoteNow")
+
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="entry-content e-content" itemprop="description articleBody">
+                            <h3 class="info-name amy-title">Synopsis</h3>
+                            <p>
+                                @Html.DisplayFor(item => item.Story)
+                            </p>
+                        </div>
+
+
+
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+                    $(".movie-rating-star").click(function () {
+                        var urlForAction = "/Home/SendRating?r=" + $(this).attr("data-value") + "&id=@Model.Id&url=@url";
+                        $.post(urlForAction, null, function (data) {
+                            $('#lblResult').html(data);
+                        });
+                    });
+                    $("#lblResult").ajaxStart(function () {
+                        $("#lblResult").html("Processing...");
+                    });
+                    $("#lblResult").ajaxError(function () {
+                        $("#lblResult").html("<br /> Error occured");
+                    });
+    </script>
+
+}

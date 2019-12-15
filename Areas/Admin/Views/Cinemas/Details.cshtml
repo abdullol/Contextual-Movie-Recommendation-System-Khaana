@@ -1,0 +1,84 @@
+﻿@model Movie_Recommendation_System.Areas.Admin.Models.Cinemas
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row form-horizontal">
+    <div class="col-md-offset-1 form-horizontal col-md-10">
+        <h4 style="text-align:center">Selected Movie Details</h4>
+        <hr />
+        <p>
+            @Html.ActionLink("Edit", "Edit", null, new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CinemaName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CinemaName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Halls)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Halls)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ContactNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TicketFee)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TicketFee)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SeatsAvailable)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SeatsAvailable)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaticLocation)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StaticLocation)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.latitude)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.latitude)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.longitude)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.longitude)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</div>
+

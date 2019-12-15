@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Movie_Recommendation_System.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row form-group">
+    <div class="col-md-offset-1 col-md-10">
+        <div class="col-md-offset-4 col-md-2" style="margin-top:5px; margin-bottom:5px">
+            <a href="/Admin/Admin/RegisterRole" class="btn btn-success" style="margin-top:5px; margin-bottom:5px">Generate New Role</a>
+            <a href="/Admin/Admin/RoleAssignment" class="btn btn-default" style="margin-top:5px; margin-bottom:5px">Assign New Roles To User</a>
+        </div>
+        <table class="table table-bordered col-md-12">
+            <tr>
+                <th>
+                    @Html.Label("Registered User")
+                </th>
+                <th>
+                    @Html.Label("Edit/Details/Delete")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", null, new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", null, new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                        @Html.ActionLink("Delete", "Delete", null, new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "RoleAssignment";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("RoleAssignment", "Admin", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="control-label">User Name</label>
+            <input type="text" name="txtUserName" class="form-control" />
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="control-label">Select Role</label>
+                @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Role)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+    </div>
+}
+

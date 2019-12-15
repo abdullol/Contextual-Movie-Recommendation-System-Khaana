@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Movie_Recommendation_System.Areas.Admin.Models.Cinemas>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="col-md-offset-1 col-md-12 margin">
+    <i class="fa fa-fw fa-plus"></i>
+    @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+</div>
+
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        <table class="table table-bordered col-md-12">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CinemaName)
+                </th>
+                <th>
+                    @Html.Label("Edit/Details/Delete")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CinemaName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", null, new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", null, new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                        @Html.ActionLink("Delete", "Delete", null, new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

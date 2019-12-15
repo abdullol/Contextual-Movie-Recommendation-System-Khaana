@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Movie_Recommendation_System.Areas.Admin.Models.CinemaShowtimes>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        <div class="col-md-offset-1 col-md-12 margin">
+            <i class="fa fa-fw fa-plus"></i>
+            @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
+        </div>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CinemaInstance.CinemaName)
+                </th>
+                <th>
+                    Edit/Details/Delete
+                </th>
+            </tr>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.CinemaInstance.CinemaName)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", null, new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                            @Html.ActionLink("Details", "Details", null, new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                            @Html.ActionLink("Delete", "Delete", null, new { id = item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

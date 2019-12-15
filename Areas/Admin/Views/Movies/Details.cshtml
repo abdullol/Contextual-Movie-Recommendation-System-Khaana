@@ -1,0 +1,111 @@
+﻿@model Movie_Recommendation_System.Areas.Admin.Models.Movies
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row form-horizontal">
+    <div class="col-md-offset-1 form-horizontal col-md-10">
+        <h4 style="text-align:center">Selected Movie Details</h4>
+        <hr />
+        <p>
+            @Html.ActionLink("Edit", "Edit", null, new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+        <div>
+            <dl class="dl-horizontal col-md-8">
+                <dt>
+                    @Html.DisplayNameFor(model => model.MovieName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MovieName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MoviePoster)
+                </dt>
+                @{
+                    string length = Model.MoviePoster.ToString().Substring(0, 20) + "...";
+                }
+                <dd>
+                    @Html.DisplayFor(model => length)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MovieRating)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MovieRating)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PGRating)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PGRating)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MovieDuration)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MovieDuration)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ReleaseDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Director)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Director)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Actor)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Actor)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Writer)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Writer)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MovieGenre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MovieGenre)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Story)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Story)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</div>

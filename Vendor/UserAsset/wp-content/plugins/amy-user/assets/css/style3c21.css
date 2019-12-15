@@ -1,0 +1,176 @@
+
+.amy-page-user {
+	margin: 30px 0;
+}
+
+.amy-page-user .page-content {
+	text-align: center;
+	font-size: 15px;
+}
+
+.amy-page-user .amy-social-login {
+	margin: 0;
+	padding: 0;
+}
+
+.amy-page-user .amy-social-login li {
+	list-style: none;
+	display: inline-block;
+}
+
+.amy-page-user .amy-social-login li a.amy-social {
+	background: #000 none repeat scroll 0 0;
+	border-radius: 50%;
+	color: #fff;
+	display: block;
+	font-size: 17px;
+	height: 42px;
+	line-height: 42px;
+	margin: 0 3px;
+	width: 42px;
+}
+
+.amy-page-user .amy-social-login li a.amy-social:hover {
+	color: #fe7900;
+}
+
+.amy-page-user .amy-social-login li a.amy-social.amy-fb {
+	background: #4867a7;
+}
+
+.amy-page-user .amy-social-login li a.amy-social.amy-tw {
+	background: #50bcfa;
+}
+
+.amy-page-user .amy-social-login li a.amy-social.amy-gg {
+	background: #dc3547;
+}
+
+.amy-page-user .amy-tab {
+	margin: 25px auto 0;
+	max-width: 300px;
+}
+
+.amy-page-user #amy-login .login-username label,
+.amy-page-user #amy-login .login-password label {
+	display: none;
+}
+
+.amy-page-user #amy-login p {
+	margin: 0;
+}
+
+.amy-page-user #amy-register .notice {
+	margin-top: 10px;
+}
+
+.amy-page-user input[type="password"],
+.amy-page-user input[type='text'] {
+	background: transparent none repeat scroll 0 0;
+	border-radius: 25px;
+	border-width: 2px;
+	margin-bottom: 15px;
+}
+
+#amy-user-popup {
+	display: none;
+	min-width: 450px;
+}
+
+#amy-user-popup .amy-social-login {
+	margin: 0 0 15px;
+	padding: 0;
+}
+
+#amy-user-popup .amy-social-login li {
+	list-style: none;
+	display: inline-block;
+}
+
+#amy-user-popup .amy-social-login li a {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 30px;
+	display: inline-block;
+	margin-right: 3px;
+	color: #fff;
+	outline: none;
+}
+
+#amy-user-popup .amy-social-login li a.amy-fb {
+	background: #4867a7;
+}
+
+#amy-user-popup .amy-social-login li a.amy-gg {
+	background: #dc3547;
+}
+
+#amy-user-popup .amy-social-login li a.amy-tw {
+	background: #50bcfa;
+}
+
+#amy-user-popup .amy-tab-content input {
+	margin-bottom: 10px;
+}
+
+.amy-tab.amy-user-tab:after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.amy-user-tab .amy-tab-nav ul {
+	border-top: 2px solid #e1e1e1;
+	margin-bottom: 8px;
+	list-style: outside none none;
+	padding: 0;
+	width: 100%;
+	display: table;
+}
+
+.amy-user-tab .amy-tab-nav ul li {
+	display: block;
+	position: relative;
+	float: left;
+	margin-bottom: -1px;
+	padding: 8px 0;
+}
+
+.amy-user-tab .amy-tab-nav ul li.active {
+	border-top: 2px solid #ec6060;
+	margin-top: -2px;
+}
+
+.amy-user-tab .amy-tab-nav ul li.active a {
+	color: #000;
+}
+
+.amy-user-tab .amy-tab-nav ul li:last-child a {
+	border-right: none;
+}
+
+.amy-user-tab .amy-tab-nav ul li a {
+	display: block;
+	position: relative;
+	border-right: 1px solid #ddd;
+	color: #646464;
+	font-size: 16px;
+	font-weight: bold;
+	margin-right: -1px;
+	padding: 0 15px !important;
+	text-transform: uppercase;
+}
+
+.amy-user-tab .amy-tab-contents .amy-tab-content {
+	display: none;
+}
+
+.amy-user-tab .amy-tab-contents .amy-tab-content.active {
+	display: block;
+}
+
+.amy-user-tab .amy-tab-contents h3.amy-shortcode-title {
+	display: none;
+}
