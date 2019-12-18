@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -31,41 +32,41 @@ namespace Movie_Recommendation_System.Controllers
                           orderby st.MovieRating descending
                           select st;
             obj.topIMDB = topIMDB.Take(11).ToList();
-            //string path = @"C:\Users\Maaz Ahmed\Desktop\t.bat";
+            string path = @"C:\Users\abmns\Desktop\runAlgo.bat";
 
-            //ThreadPool.QueueUserWorkItem(o =>
-            //{
-            //    var user = User.Identity.GetUserId();
-            //    string a = User.Identity.Name;
-            //    //string path = @"C:\Users\Maaz Ahmed\Desktop\t.bat";
-            //    var proc = new Process
-            //    {
-            //        StartInfo = new ProcessStartInfo
-            //        {
-            //            FileName = path,
-            //            Arguments = User.Identity.GetUserId(),
-            //            UseShellExecute = false,
-            //            RedirectStandardOutput = true,
-            //            CreateNoWindow = true
-            //        }
-            //    };
-            //    proc.Start();
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                var user = User.Identity.GetUserId();
+                
+                //string path = @"C:\Users\Maaz Ahmed\Desktop\t.bat";
+                var proc = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = path,
+                        Arguments = User.Identity.GetUserId(),
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true
+                    }
+                };
+                proc.Start();
 
 
 
-            //    string line = string.Empty;
+                string line = string.Empty;
 
-            //    while (!proc.StandardOutput.EndOfStream)
-            //    {
-            //        line = proc.StandardOutput.ReadLine();
-            //        int con;
-            //        if (Int32.TryParse(line, out con))
-            //        {
-            //            Movies.Add(db.Movies.Find(con));
-            //        }
-            //    }
-            //    //proc.WaitForExit();
-            //});
+                while (!proc.StandardOutput.EndOfStream)
+                {
+                    line = proc.StandardOutput.ReadLine();
+                    int con;
+                    if (Int32.TryParse(line, out con))
+                    {
+                        Movies.Add(db.Movies.Find(con));
+                    }
+                }
+                //proc.WaitForExit();
+            });
 
             for (int i = 0; i < 10; ++i)
             {
@@ -99,6 +100,20 @@ namespace Movie_Recommendation_System.Controllers
 
         public JsonResult SendRating(string r, string id, string url)
         {
+            //Sending ratings to csv file
+            //var userId = User.Identity.GetUserId();
+            //var newLine = string.Format("{0},{1},{2}", userId, id, r);
+            //StreamReader oStreamReader = new StreamReader(@"E:\mrs\ratings.csv");
+            //string recordsFromFirstFile = oStreamReader.ReadToEnd();
+            //oStreamReader.Close(); 
+            //oStreamReader.Dispose();
+
+            //StreamWriter oStreamWriter = new StreamWriter(@"E:\mrs\ratings.csv");
+            //oStreamWriter.Write(recordsFromFirstFile + newLine);
+            //oStreamWriter.Close();
+            //oStreamWriter.Dispose();
+
+
             int autoId = 0;
             short rating = 0;
             var timestampNow = DateTime.Now;

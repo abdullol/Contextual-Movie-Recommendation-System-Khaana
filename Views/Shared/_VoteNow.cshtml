@@ -10,36 +10,35 @@
 
 @if (Request.Cookies[url] == null)
 {
-<div class="mrate user-rate has-rate">
-    <ul class="movie-rating-stars" onclick="shout()">
-        <li><a class="movie-rating-star movie-rating-star-1" data-value="1" data-post="88"></a></li>
-        <li><a class="movie-rating-star movie-rating-star-2" data-value="2" data-post="88"></a></li>
-        <li><a class="movie-rating-star movie-rating-star-3" data-value="3" data-post="88"></a></li>
-        <li><a class="movie-rating-star movie-rating-star-4" data-value="4" data-post="88"></a></li>
-        <li><a class="movie-rating-star movie-rating-star-5" data-value="5" data-post="88"></a></li>
-    </ul>
-    <label id="lblResult"></label>
+    <div class="mrate user-rate has-rate">
+        <ul class="movie-rating-stars">
+            <li><a class="movie-rating-star movie-rating-star-1" data-value="1" data-post="88"></a></li>
+            <li><a class="movie-rating-star movie-rating-star-2" data-value="2" data-post="88"></a></li>
+            <li><a class="movie-rating-star movie-rating-star-3" data-value="3" data-post="88"></a></li>
+            <li><a class="movie-rating-star movie-rating-star-4" data-value="4" data-post="88"></a></li>
+            <li><a class="movie-rating-star movie-rating-star-5" data-value="5" data-post="88"></a></li>
+        </ul>
+        <label id="lblResult"></label>
 
-    <ul class="mv-rating-stars">
-        <li class="mv-current-rating user-rating" data-point="88%" style="width: 88%;"></li>
-    </ul>
+        <ul class="mv-rating-stars">
+            <li class="mv-current-rating user-rating" data-point="88%" style="width: 88%;"></li>
+        </ul>
 
-    <script type="text/javascript">
-                    $(".movie-rating-star").click(function () {
-                        var urlForAction = "/Home/SendRating?r=" + $(this).attr("data-value") + "&id=@Model.Id&url=@url";
-                        $.post(urlForAction, null, function (data) {
-                            $('#lblResult').html(data);
-                        });
+        @*<script type="text/javascript">
+                $(".movie-rating-star").click(function () {
+                    var urlForAction = "/Home/SendRating?r=" + $(this).attr("data-value") + "&id=@Model.Id&url=@url";
+                    $.post(urlForAction, null, function (data) {
+                        $('#lblResult').html(data);
                     });
+                });
 
-                    $("#lblResult").ajaxStart(function () {
-                        $("#lblResult").html("Processing...");
-                    });
+                $("#lblResult").ajaxStart(function () {
+                    $("#lblResult").html("Processing...");
+                });
 
-                    $("#lblResult").ajaxError(function () {
-                        $("#lblResult").html("<br /> Error occured");
-                    });
-
-    </script>
-</div>
+                $("#lblResult").ajaxError(function () {
+                    $("#lblResult").html("<br /> Error occured");
+                });
+            </script>*@
+    </div>
 }

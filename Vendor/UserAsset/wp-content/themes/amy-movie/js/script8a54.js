@@ -381,35 +381,35 @@
 		});
 	}
 
-	function amyMovieRate() {
-		$('.movie-rating-star').each(function() {
-			$(this).click(function() {
-				var $loading 	= $('#amy-loading'),
-					value 		= $(this).attr('data-value'),
-					m_id		= $(this).attr('data-post');
+	//function amyMovieRate() {
+	//	$('.movie-rating-star').each(function() {
+	//		$(this).click(function() {
+	//			var $loading 	= $('#amy-loading'),
+	//				value 		= $(this).attr('data-value'),
+	//				m_id		= $(this).attr('data-post');
 
-				$.ajax({
-					method: 'POST',
-					url: amy_script.ajax_url,
-					data: 'action=amy_movie_ajax_rate&post_id=' + m_id + '&point=' + value,
-					dataType: 'json',
-					beforeSend: function() {
-						$loading.addClass('open');
-					},
-					success: function(response) {
-						$loading.removeClass('open');
+	//			$.ajax({
+	//				method: 'POST',
+	//				url: amy_script.ajax_url,
+	//				data: 'action=amy_movie_ajax_rate&post_id=' + m_id + '&point=' + value,
+	//				dataType: 'json',
+	//				beforeSend: function() {
+	//					$loading.addClass('open');
+	//				},
+	//				success: function(response) {
+	//					$loading.removeClass('open');
 
-						if (response == -1) {
-							alert(amy_script.amy_rate_already);
-						} else if (response == 1) {
-							alert(amy_script.amy_rate_done);
-							location.reload();
-						}
-					}
-				});
-			});
-		});
-	}
+	//					if (response == -1) {
+	//						alert(amy_script.amy_rate_already);
+	//					} else if (response == 1) {
+	//						alert(amy_script.amy_rate_done);
+	//						location.reload();
+	//					}
+	//				}
+	//			});
+	//		});
+	//	});
+	//}
 
 	function amyMovieOther() {
 		//

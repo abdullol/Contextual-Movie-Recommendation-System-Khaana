@@ -88,17 +88,17 @@
 </section>
 @section Scripts {
     <script type="text/javascript">
-                    $(".movie-rating-star").click(function () {
-                        var urlForAction = "/Home/SendRating?r=" + $(this).attr("data-value") + "&id=@Model.Id&url=@url";
-                        $.post(urlForAction, null, function (data) {
-                            $('#lblResult').html(data);
+        jQuery(".movie-rating-star").click(function () {
+                        var urlForAction = "/Home/SendRating?r=" + jQuery(this).attr("data-value") + "&id=@Model.Id&url=@url";
+                        jQuery.post(urlForAction, null, function (data) {
+                            jQuery('#lblResult').html(data);
                         });
                     });
-                    $("#lblResult").ajaxStart(function () {
-                        $("#lblResult").html("Processing...");
+                    jQuery("#lblResult").ajaxStart(function () {
+                        jQuery("#lblResult").html("Processing...");
                     });
-                    $("#lblResult").ajaxError(function () {
-                        $("#lblResult").html("<br /> Error occured");
+                    jQuery("#lblResult").ajaxError(function () {
+                        jQuery("#lblResult").html("<br /> Error occured");
                     });
     </script>
 
