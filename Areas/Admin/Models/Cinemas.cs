@@ -27,7 +27,6 @@ namespace Movie_Recommendation_System.Areas.Admin.Models
 
         [Display(Name = "Seats Available")]
         public bool SeatsAvailable { get; set; }
-        public string Location { get; set; }
 
         //one cinema-many showtimes
         public ICollection<CinemaShowtimes> CinemaShowTimes { get; set; }

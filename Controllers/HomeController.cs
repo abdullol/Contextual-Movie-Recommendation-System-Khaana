@@ -32,12 +32,12 @@ namespace Movie_Recommendation_System.Controllers
                           orderby st.MovieRating descending
                           select st;
             obj.topIMDB = topIMDB.Take(11).ToList();
-            string path = @"C:\Users\abmns\Desktop\runAlgo.bat";
+            string path = @"D:/Work/Movie_Recommendation_System/mrs/runAlgo.bat";
 
             ThreadPool.QueueUserWorkItem(o =>
             {
                 var user = User.Identity.GetUserId();
-                
+
                 //string path = @"C:\Users\Maaz Ahmed\Desktop\t.bat";
                 var proc = new Process
                 {
@@ -100,20 +100,6 @@ namespace Movie_Recommendation_System.Controllers
 
         public JsonResult SendRating(string r, string id, string url)
         {
-            //Sending ratings to csv file
-            //var userId = User.Identity.GetUserId();
-            //var newLine = string.Format("{0},{1},{2}", userId, id, r);
-            //StreamReader oStreamReader = new StreamReader(@"E:\mrs\ratings.csv");
-            //string recordsFromFirstFile = oStreamReader.ReadToEnd();
-            //oStreamReader.Close(); 
-            //oStreamReader.Dispose();
-
-            //StreamWriter oStreamWriter = new StreamWriter(@"E:\mrs\ratings.csv");
-            //oStreamWriter.Write(recordsFromFirstFile + newLine);
-            //oStreamWriter.Close();
-            //oStreamWriter.Dispose();
-
-
             int autoId = 0;
             short rating = 0;
             var timestampNow = DateTime.Now;
@@ -141,6 +127,7 @@ namespace Movie_Recommendation_System.Controllers
                 return Json("<br/>Thanks You Have Already Voted");
             }
 
+
             var movie = db.Movies.Where(m => m.Id == autoId).FirstOrDefault();
 
             db.Entry(movie).State = EntityState.Modified;
@@ -156,6 +143,18 @@ namespace Movie_Recommendation_System.Controllers
 
             db.Ratings.Add(ratingTableUpdated);
             db.SaveChanges();
+
+            ////Adding data in csv file
+            string arg = identityUser + "," + id + "," + r + "," + "1260759144" + Environment.NewLine;
+
+            using (StreamWriter sw = new StreamWriter(@"D:\Work\Movie_Recommendation_System\mrs\ratings.csv", true))
+            {
+                sw.Write(arg);
+                sw.Close();
+                sw.Dispose();
+            }
+            
+
 
             return Json("<br/>You Rated " + r + " star(s), Thanks");
         }
@@ -178,7 +177,34 @@ namespace Movie_Recommendation_System.Controllers
 
         public ActionResult GetShowtimes()
         {
-            return View(db.CinemaShowtimes.Include("CinemaInstance").Include("MoviesInstance").ToList());
+            //http://www.geoplugin.net/asp.gp?ip=xx.xx.xx.xx
+            //http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx
+            //https://jsonplaceholder.typicode.com/posts/1/comments
+
+            //GET
+            string _strTestUrl = String.Format("http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx");
+            WebRequest _requestObjGet = WebRequest.Create(_strTestUrl);
+            _requestObjGet.Method = "GET";
+            HttpWebResponse _responseObjGet = null;
+            _responseObjGet = (HttpWebResponse)_requestObjGet.GetResponse();
+
+            string _strResultTest = null;
+
+            //reading the Stream from Response object
+            using (Stream stream = _responseObjGet.GetResponseStream())
+            {
+                StreamReader sr = new StreamReader(stream);
+                _strResultTest = sr.ReadToEnd();
+                sr.Close();
+            }
+
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+
+            UserContext objList = (UserContext)serializer.Deserialize(_strResultTest, typeof(UserContext));
+
+            string a = objList.geoplugin_city;
+
+            return View(db.CinemaShowtimes.Where(r => string.Compare(r.Location, a, true) == 0).Include("CinemaInstance").Include("MoviesInstance").ToList());
         }
 
 

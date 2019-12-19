@@ -45,29 +45,24 @@
                                                                         <div class="amy-movie-item-back-inner">
                                                                             <div class="amy-movie-item-content">
                                                                                 <h3 class="amy-movie-field-title"><a href="@Url.Action("getMovie", "Home", new { id = item.Id })">@Html.DisplayFor(modelItem => item.MovieName)</a></h3>
-                                                                                <div class="amy-movie-field-rating">
-                                                                                    <div class="amy-movie-field-rating-inner">
-                                                                                        <span class="rating-stars"><span class="current-rating" style="width: 88%"></span></span>
-                                                                                        <span class="user-rating"><a href="#">(89 Votes)</a></span>
-                                                                                    </div>
-                                                                                </div>
+                                                                                
                                                                                 <div class="amy-movie-item-meta">
-                                                                                    <span class="amy-movie-field-mpaa">G</span>
+                                                                                    <span class="amy-movie-field-mpaa">@Html.DisplayFor(modelItem => item.PGRating)</span>
                                                                                     <span class="amy-movie-field-duration"><i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.MovieDuration)</span>
                                                                                 </div>
 
 
                                                                                 <div class="amy-movie-custom-field-group amy-movie-field-release_date">
-                                                                                    <label class="amy-movie-custom-field-label">Release Date:</label>
+                                                                                    <label class="amy-movie-custom-field-label">IMDB Rating:</label>
                                                                                     <div class="amy-movie-custom-field-content">
-                                                                                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                                                                                        @Html.DisplayFor(modelItem => item.MovieRating)
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="amy-movie-custom-field-group amy-movie-field-amy_genre">
                                                                                     <label class="amy-movie-custom-field-label">Genre:</label>
                                                                                     <div class="amy-movie-custom-field-content">
 
-                                                                                        <a href="#">@Html.DisplayFor(modelItem => item.MovieGenre)</a>
+                                                                                        @Html.DisplayFor(modelItem => item.MovieGenre)
 
                                                                                     </div>
                                                                                 </div>
@@ -75,7 +70,7 @@
                                                                                     <label class="amy-movie-custom-field-label">Actor:</label>
                                                                                     <div class="amy-movie-custom-field-content">
 
-                                                                                        <a href="#">@Html.DisplayFor(modelItem => item.Actor)</a>
+                                                                                        @Html.DisplayFor(modelItem => item.Actor)
 
                                                                                     </div>
                                                                                 </div>
@@ -83,7 +78,7 @@
                                                                                     <label class="amy-movie-custom-field-label">Director:</label>
                                                                                     <div class="amy-movie-custom-field-content">
 
-                                                                                        <a href="#">@Html.DisplayFor(modelItem => item.Director)</a>
+                                                                                        @Html.DisplayFor(modelItem => item.Director)
 
                                                                                     </div>
                                                                                 </div>
@@ -92,14 +87,12 @@
                                                                                 <a class="amy-btn-icon-text link-detail" href="@Url.Action("getMovie", "Home", new { id = item.Id })">
                                                                                     <i class="fa fa-info"></i>Detail
                                                                                 </a>
-                                                                                <span class="amy-btn-showtimes showtime-btn">Showtime</span>
+                                                                                
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="entry-showtime as">
-                                                                    <div class="showtime-item"><h3>GV Vivocity</h3><div class="st-item"><div class="st-title"><label>December 22, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>13h45</li><li>16h45</li></ul><div class="st-title"><label>December 25, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>13h25</li><li>17h</li><li>21h30</li></ul><div class="st-title"><label>December 29, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>12h</li><li>15h</li><li>16h</li></ul></div></div><div class="showtime-item"><h3>GV Tampines</h3><div class="st-item"><div class="st-title"><label>December 12, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>13h</li><li>16h</li><li>17h</li></ul><div class="st-title"><label>December 15, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>13h</li><li>17h</li><li>23h30</li></ul><div class="st-title"><label>December 19, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>15h</li><li>18h</li><li>19h45</li></ul></div></div><div class="showtime-item"><h3>GV Max</h3><div class="st-item"><div class="st-title"><label>December 10, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>13h</li><li>18h</li></ul><div class="st-title"><label>December 13, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>15h45</li><li>18h30</li></ul><div class="st-title"><label>December 17, 2018</label><a href="#" class="amy-buy-ticket" target="_blank">Buy Ticket</a></div><ul><li>16h45</li><li>22h</li></ul></div></div>
-                                                                </div>
+                                                                
                                                             </div>
                                                         }
 

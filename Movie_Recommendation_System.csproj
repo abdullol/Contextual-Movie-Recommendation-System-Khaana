@@ -234,15 +234,16 @@
     <Compile Include="Migrations\201912081426235_aspnetuser-guid-to-int.Designer.cs">
       <DependentUpon>201912081426235_aspnetuser-guid-to-int.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912141227553_cinema-location-added.cs" />
-    <Compile Include="Migrations\201912141227553_cinema-location-added.Designer.cs">
-      <DependentUpon>201912141227553_cinema-location-added.cs</DependentUpon>
+    <Compile Include="Migrations\201912191150538_cinemaShowtime-location-Added.cs" />
+    <Compile Include="Migrations\201912191150538_cinemaShowtime-location-Added.Designer.cs">
+      <DependentUpon>201912191150538_cinemaShowtime-location-Added.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Ratings.cs" />
+    <Compile Include="Models\UserContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -7664,8 +7665,8 @@
     <EmbeddedResource Include="Migrations\201912081426235_aspnetuser-guid-to-int.resx">
       <DependentUpon>201912081426235_aspnetuser-guid-to-int.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912141227553_cinema-location-added.resx">
-      <DependentUpon>201912141227553_cinema-location-added.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912191150538_cinemaShowtime-location-Added.resx">
+      <DependentUpon>201912191150538_cinemaShowtime-location-Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

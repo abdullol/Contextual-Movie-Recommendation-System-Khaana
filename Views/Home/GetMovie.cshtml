@@ -21,7 +21,7 @@
 
                                 <h1 class="entry-title p-name" itemprop="name headline"><a href="index.html" rel="bookmark" class="u-url url" itemprop="url">@Html.DisplayFor(item => item.MovieName)</a></h1>
                                 <div class="entry-pg">
-                                    <span class="pg">@Html.DisplayFor(item => item.MovieRating)</span>
+                                    <span class="pg">@Html.DisplayFor(item => item.PGRating)</span>
 
                                     <span class="duration">
                                         <i class="fa fa-clock-o"></i>
@@ -49,11 +49,6 @@
                                         <span>
                                             @Html.DisplayFor(item => item.MovieGenre)
                                         </span>
-                                    </li>
-
-                                    <li>
-                                        <label>Release:</label>
-                                        <span>@Html.DisplayFor(item => item.ReleaseDate)</span>
                                     </li>
 
                                     <li>

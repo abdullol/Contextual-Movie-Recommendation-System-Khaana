@@ -6,13 +6,9 @@
 
 <div id="main">
     <div id="content" class="site-content">
-
-
         <section id="amy-page-header" class="has-page-title ">
             <div class="amy-page-title amy-left"><div class="amy-inner container"><h1 class="page-title">Show Times</h1>@*<div class="amy-breadcrumb"><span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to Demo." href="http://demo.amytheme.com/movie/demo/multi-cinema" class="home"><span property="name">Demo</span></a><meta property="position" content="1"></span> &gt; <span class="post post-page current-item">Weekly Showtime Table</span></div>*@</div></div>
-
         </section>
-
         <section class="main-content page-layout-full">
             <div class="container">
                 <div class="row">
@@ -42,78 +38,72 @@
                                                         <div class="amy-movie-items">
                                                             @foreach (var item in Model)
                                                             {
-                                                            <div class="amy-movie-item row">
-                                                                <div class="amy-movie-item-inner col-md-9 col-sm-8">
-                                                                    <div class="amy-movie-item-front">
-                                                                        
-                                                                            
-                                                                                <img width="196" height="294" src="@Html.DisplayFor(model=>item.MoviesInstance.MoviePoster)" class="ps" sizes="(max-width: 196px) 100vw, 196px">
-                                                                            
-                                                                        
+                                                                <div class="amy-movie-item row">
+                                                                    <div class="amy-movie-item-inner col-md-9 col-sm-8">
+                                                                        <div class="amy-movie-item-front">
+                                                                            <img width="196" height="294" src="@Html.DisplayFor(model=>item.MoviesInstance.MoviePoster)" class="ps" sizes="(max-width: 196px) 100vw, 196px">
+                                                                        </div>
+                                                                        <div class="amy-movie-item-back">
+                                                                            <div class="amy-movie-item-back-inner">
+                                                                                <div class="amy-movie-item-content">
+                                                                                    <span class="amy-movie-field-imdb bg">@Html.DisplayFor(model => item.MoviesInstance.MovieRating)</span>
+                                                                                    <h3 class="amy-movie-field-title"><a href="#">@Html.DisplayFor(model => item.MoviesInstance.MovieName)</a></h3>
+                                                                                    <div class="amy-movie-field-rating">
+
+                                                                                    </div>
+                                                                                    <div class="amy-movie-item-meta">
+                                                                                        <span class="amy-movie-field-mpaa">@Html.DisplayFor(model => item.MoviesInstance.PGRating)</span>
+                                                                                        <span class="amy-movie-field-duration"><i class="fa fa-clock-o"></i>@Html.DisplayFor(model => item.MoviesInstance.MovieDuration)</span>
+                                                                                    </div>
+
+                                                                                    <div class="amy-movie-custom-field-group amy-movie-field-release_date">
+                                                                                        <label class="amy-movie-custom-field-label">IMDB Rating:</label>
+                                                                                        <div class="amy-movie-custom-field-content">
+                                                                                            @Html.DisplayFor(model => item.MoviesInstance.MovieRating)
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="amy-movie-custom-field-group amy-movie-field-amy_genre">
+                                                                                        <label class="amy-movie-custom-field-label">Genre:</label>
+                                                                                        <div class="amy-movie-custom-field-content">
+                                                                                            @Html.DisplayFor(model => item.MoviesInstance.MovieGenre)
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="amy-movie-custom-field-group amy-movie-field-amy_actor">
+                                                                                        <label class="amy-movie-custom-field-label">Actor:</label>
+                                                                                        <div class="amy-movie-custom-field-content">
+                                                                                            @Html.DisplayFor(model => item.MoviesInstance.Actor)
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="amy-movie-custom-field-group amy-movie-field-amy_director">
+                                                                                        <label class="amy-movie-custom-field-label">Director:</label>
+                                                                                        <div class="amy-movie-custom-field-content">
+                                                                                            @Html.DisplayFor(model => item.MoviesInstance.Director)
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="amy-movie-item-back">
-                                                                        <div class="amy-movie-item-back-inner">
-                                                                            <div class="amy-movie-item-content">
-                                                                                <span class="amy-movie-field-imdb bg">@Html.DisplayFor(model => item.MoviesInstance.MovieRating)</span>
-                                                                                <h3 class="amy-movie-field-title"><a href="#">@Html.DisplayFor(model => item.MoviesInstance.MovieName)</a></h3>
-                                                                                <div class="amy-movie-field-rating">
-                                                                                    
-                                                                                </div>
-                                                                                <div class="amy-movie-item-meta">
-                                                                                    <span class="amy-movie-field-mpaa">@Html.DisplayFor(model => item.MoviesInstance.PGRating)</span>
-                                                                                    <span class="amy-movie-field-duration"><i class="fa fa-clock-o"></i>@Html.DisplayFor(model => item.MoviesInstance.MovieDuration)</span>
-                                                                                </div>
-                                                                                
-                                                                                <div class="amy-movie-custom-field-group amy-movie-field-release_date">
-                                                                                    <label class="amy-movie-custom-field-label">IMDB Rating:</label>
-                                                                                    <div class="amy-movie-custom-field-content">
-                                                                                        @Html.DisplayFor(model => item.MoviesInstance.MovieRating)
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="amy-movie-custom-field-group amy-movie-field-amy_genre">
-                                                                                    <label class="amy-movie-custom-field-label">Genre:</label>
-                                                                                    <div class="amy-movie-custom-field-content">
-                                                                                        @Html.DisplayFor(model => item.MoviesInstance.MovieGenre)
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="amy-movie-custom-field-group amy-movie-field-amy_actor">
-                                                                                    <label class="amy-movie-custom-field-label">Actor:</label>
-                                                                                    <div class="amy-movie-custom-field-content">
-                                                                                        @Html.DisplayFor(model => item.MoviesInstance.Actor)
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="amy-movie-custom-field-group amy-movie-field-amy_director">
-                                                                                    <label class="amy-movie-custom-field-label">Director:</label>
-                                                                                    <div class="amy-movie-custom-field-content">
-                                                                                        @Html.DisplayFor(model => item.MoviesInstance.Director)
-                                                                                    </div>
-                                                                                </div>
+                                                                    <br />
+
+                                                                    <div class="col-md-3 col-sm-4 amy-movie-item-showtimes">
+                                                                        <div class="amy-movie-item-showtimes-inner">
+                                                                            <div class="amy-movie-item-time-list">
+                                                                                <h3 class="showtimes-title">@Html.DisplayFor(model => item.CinemaInstance.CinemaName)</h3>
+                                                                                <h3 class="showtimes-title">@Html.DisplayFor(model => item.ShowDay)</h3>
+                                                                                <h3 class="showtimes-title">@Html.DisplayFor(model=>item.Location)</h3>
+                                                                                <h3 class="tm" href="#">@Html.DisplayFor(model => item.ShowTime)</h3>
                                                                             </div>
 
+                                                                            @*<div class="amy-movie-item-time-list">
+                                                                                    <span class="intro-time">13h45</span>
+                                                                                    <span class="intro-time">16h45</span>
+                                                                                    <a class="button" href="#">Buy Ticket</a>
+                                                                                </div>*@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <br />
-
-                                                                <div class="col-md-3 col-sm-4 amy-movie-item-showtimes">
-                                                                    <div class="amy-movie-item-showtimes-inner">
-                                                                        <div class="amy-movie-item-time-list">
-                                                                            <h3 class="showtimes-title">@Html.DisplayFor(model => item.CinemaInstance.CinemaName)</h3>
-                                                                            <h3 class="showtimes-title">@Html.DisplayFor(model => item.ShowDay)</h3>
-
-
-
-                                                                            <h3 class="tm" href="#">@Html.DisplayFor(model => item.ShowTime)</h3>
-                                                                        </div>
-
-                                                                        @*<div class="amy-movie-item-time-list">
-                                                                                <span class="intro-time">13h45</span>
-                                                                                <span class="intro-time">16h45</span>
-                                                                                <a class="button" href="#">Buy Ticket</a>
-                                                                            </div>*@
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                             }
                                                         </div>
 

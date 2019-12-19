@@ -42,13 +42,14 @@ namespace Movie_Recommendation_System.Areas.Admin.Controllers
                 ShowDay = cinemaShowtime.ShowDay,
                 ShowTime = cinemaShowtime.ShowTime,
                 MoviesId = MovieList,
-                CinemaId = CinemaList
+                CinemaId = CinemaList,
+                Location=cinemaShowtime.Location
             };
 
             _context.CinemaShowtimes.Add(movieShowtime);
             _context.SaveChanges();
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
         public ActionResult Edit(int? id)
         {

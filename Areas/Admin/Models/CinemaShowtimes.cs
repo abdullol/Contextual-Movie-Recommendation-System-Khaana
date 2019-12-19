@@ -16,6 +16,7 @@ namespace Movie_Recommendation_System.Areas.Admin.Models
 
         [Display(Name = "Movie Showday")]
         public DateTime ShowDay { get; set; }
+        public string Location { get; set; }
 
         //for db use
         [ForeignKey("CinemaInstance")]
