@@ -25,20 +25,48 @@ namespace Movie_Recommendation_System.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            List<CinemaShowtimes> _showTimesList = new List<CinemaShowtimes>();
+            //http://www.geoplugin.net/asp.gp?ip=xx.xx.xx.xx
+            //http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx
+            //https://jsonplaceholder.typicode.com/posts/1/comments
+
+            //Reading the user's current location
+            string _strTestUrl = String.Format("http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx");
+            WebRequest _requestObjGet = WebRequest.Create(_strTestUrl);
+            _requestObjGet.Method = "GET";
+            HttpWebResponse _responseObjGet = null;
+            _responseObjGet = (HttpWebResponse)_requestObjGet.GetResponse();
+
+            string _strResultTest = null;
+
+            //reading the Stream from Response object
+            using (Stream stream = _responseObjGet.GetResponseStream())
+            {
+                StreamReader sr = new StreamReader(stream);
+                _strResultTest = sr.ReadToEnd();
+                sr.Close();
+            }
+
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+
+            UserContext objList = (UserContext)serializer.Deserialize(_strResultTest, typeof(UserContext));
+
+            string _userLocation = objList.geoplugin_city;
+
+            //makeing list of top rated movies by IMDB
             homePageVM obj = new homePageVM();
-            List<int> category = new List<int>();
             List<Movies> Movies = new List<Movies>();
             var topIMDB = from st in db.Movies
                           orderby st.MovieRating descending
                           select st;
             obj.topIMDB = topIMDB.Take(11).ToList();
-            string path = @"D:/Work/Movie_Recommendation_System/mrs/runAlgo.bat";
 
+            //starting a batch file which contains algorithm
+            string path = @"D:/Work/Movie_Recommendation_System/mrs/runAlgo.bat";
             ThreadPool.QueueUserWorkItem(o =>
             {
                 var user = User.Identity.GetUserId();
 
-                //string path = @"C:\Users\Maaz Ahmed\Desktop\t.bat";
                 var proc = new Process
                 {
                     StartInfo = new ProcessStartInfo
@@ -52,10 +80,9 @@ namespace Movie_Recommendation_System.Controllers
                 };
                 proc.Start();
 
-
-
                 string line = string.Empty;
 
+                //reading file till end
                 while (!proc.StandardOutput.EndOfStream)
                 {
                     line = proc.StandardOutput.ReadLine();
@@ -74,16 +101,53 @@ namespace Movie_Recommendation_System.Controllers
             }
             if (Movies.Count == 0)
             {
-
-
                 obj.recMovies = topIMDB.Take(11).ToList();
-                return View(obj);
             }
             else
             {
                 obj.recMovies = Movies;
+            }
+
+            var year = DateTime.Today.Year;
+            var date = DateTime.Today.Day;
+            var now = DateTime.Now;
+            var hour = now.Hour;
+            var minute = now.Minute;
+            var sec = now.Second;
+            var month = now.Month;
+            var _currentDay = DateTime.Now.DayOfYear;
+
+            //db.CinemaShowtimes.FirstOrDefault(t => t.MoviesId == item.Id &&
+            //    t.ShowDay >= DateTime.Now && string.Compare(t.Location, _userLocation, true) == 0);
+            //obj.inCinema.Add(_contextualItem);
+
+            //1234User.. 1 / 1 / 2019 12:00:00 AM
+
+            List<CinemaShowtimes> filteredData = new List<CinemaShowtimes>();
+
+            foreach (var item in obj.recMovies)
+            {
+                var _contextualItem = db.CinemaShowtimes.Where(t => t.MoviesId == item.Id &&
+                string.Compare(t.Location, _userLocation, true) == 0 &&
+                t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
+                 t.ShowDay.Day >= _currentDay).ToList();
+
+                filteredData.AddRange(_contextualItem);
+            }
+
+            obj.inCinema = filteredData.ToList();
+
+            if (obj.inCinema.Count <= 0)
+            {
                 return View(obj);
             }
+
+            if (obj.inCinema.Count > 0 || obj.inCinema.Count < 5)
+            {
+                //obj.recMovies = obj.inCinema + obj.recMovies;
+            }
+
+            return View(obj);
         }
 
         public ActionResult About()
@@ -153,8 +217,6 @@ namespace Movie_Recommendation_System.Controllers
                 sw.Close();
                 sw.Dispose();
             }
-            
-
 
             return Json("<br/>You Rated " + r + " star(s), Thanks");
         }
@@ -177,34 +239,7 @@ namespace Movie_Recommendation_System.Controllers
 
         public ActionResult GetShowtimes()
         {
-            //http://www.geoplugin.net/asp.gp?ip=xx.xx.xx.xx
-            //http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx
-            //https://jsonplaceholder.typicode.com/posts/1/comments
-
-            //GET
-            string _strTestUrl = String.Format("http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx");
-            WebRequest _requestObjGet = WebRequest.Create(_strTestUrl);
-            _requestObjGet.Method = "GET";
-            HttpWebResponse _responseObjGet = null;
-            _responseObjGet = (HttpWebResponse)_requestObjGet.GetResponse();
-
-            string _strResultTest = null;
-
-            //reading the Stream from Response object
-            using (Stream stream = _responseObjGet.GetResponseStream())
-            {
-                StreamReader sr = new StreamReader(stream);
-                _strResultTest = sr.ReadToEnd();
-                sr.Close();
-            }
-
-            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-
-            UserContext objList = (UserContext)serializer.Deserialize(_strResultTest, typeof(UserContext));
-
-            string a = objList.geoplugin_city;
-
-            return View(db.CinemaShowtimes.Where(r => string.Compare(r.Location, a, true) == 0).Include("CinemaInstance").Include("MoviesInstance").ToList());
+            return View(db.CinemaShowtimes.Include("CinemaInstance").Include("MoviesInstance").ToList());
         }
 
 

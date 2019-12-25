@@ -17,34 +17,31 @@
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(model => model.Id)
-    <div class="row">
+    <div class="row form-group">
         <div class="margin">
 
             <div class="form-group">
-                <div class="col-md-offset-3 col-md-6 margin">
-                    <label>@Html.LabelFor(model => model.CinemaInstance.CinemaName)</label>
-                    @Html.DropDownList("CinemaList", ViewBag.CinemaList as SelectList, new { @class = "form-control select2" })
-                    @Html.ValidationMessageFor(model => model.CinemaId)
+                <div class="col-md-offset-3 col-md-6 margin" style="padding:0px">
+                    <div class="col-md-6">
+                        <label>@Html.LabelFor(model => model.CinemaInstance.CinemaName)</label>
+                    </div>
+                    <div class="col-md-12">
+                        @Html.DropDownList("CinemaList", ViewBag.CinemaList as SelectList, new { @class = "form-control select2" })
+                        @Html.ValidationMessageFor(model => model.CinemaId)
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-3 col-md-6 margin">
+
+            <div class="form-group col-md-offset-3 col-md-6 margin" style="padding:0px">
+                <div class="col-md-6">
                     <label>@Html.LabelFor(model => model.MoviesInstance.MovieName)</label>
+                </div>
+                <div class="col-md-12">
                     @Html.DropDownList("MovieList", ViewBag.MovieList as SelectList, new { @class = "form-control select2" })
                     @Html.ValidationMessageFor(model => model.MoviesId)
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-3 col-md-6 margin">
-                    @Html.Label("Movie Showday")
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="ShowDay" name="ShowDay">
-                    </div>
-                </div>
-            </div>
+
             <div class="form-group">
                 <!-- time Picker -->
                 <div class="col-md-offset-3 col-md-6 margin">
@@ -64,17 +61,34 @@
 
             <div class="form-group">
                 <div class="col-md-offset-3 col-md-6 margin">
-                    <label>@Html.LabelFor(model => model.Location)</label>
-                    @Html.EditorFor(model => model.Location, new { @class = "form-control select2" })
-                    @Html.ValidationMessageFor(model => model.Location)
+                    @Html.Label("Movie Showday")
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="ShowDay" name="ShowDay">
+                    </div>
                 </div>
             </div>
+
+            <div class="form-group col-md-offset-3 col-md-6 margin" style="padding:0px">
+                <div class="col-md-6">
+                    <label>@Html.LabelFor(model => model.Location)</label>
+                </div>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
 
             <div class="form-group">
                 <div class="col-md-12 text-center">
                     <button type="submit" class="btn btn-primary" id="Submit" name="Submit" value="Submit">Submit</button>
                 </div>
             </div>
+
         </div>
     </div>
 }

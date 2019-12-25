@@ -73,6 +73,36 @@
                         </a>
                     </div>
                 </div>
+                <br />
+                <h4 class="amy-title amy-widget-title">  Contextualised Recommendation</h4>
+                <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
+                    <div class="carousel-inner c2">
+
+                        @foreach (var item in Model.inCinema)
+                        {
+                            <div class="item">
+                                <div class="carousel-col">
+                                    <img src="@Html.DisplayFor(modelItem => item.MoviesInstance.MoviePoster)" class="img-responsive">
+                                    <h4 class="entry-title"><a href="@Url.Action("GetMovie", "Home", new { id = item.Id })">@Html.DisplayFor(modelItem => item.MoviesInstance.MovieName)</a></h4>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="left carousel-control">
+                        <a href="#carousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </div>
+                    <div class="right carousel-control">
+                        <a href="#carousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

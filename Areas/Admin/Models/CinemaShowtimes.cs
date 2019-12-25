@@ -11,11 +11,17 @@ namespace Movie_Recommendation_System.Areas.Admin.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Show Timing")]
         [Display(Name = "Movie Showtime")]
         public string ShowTime { get; set; }
 
+        [Required(ErrorMessage = "Enter Show Day Information")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Movie Showday")]
         public DateTime ShowDay { get; set; }
+
+        [Required(ErrorMessage = "Enter Show Location")]
         public string Location { get; set; }
 
         //for db use

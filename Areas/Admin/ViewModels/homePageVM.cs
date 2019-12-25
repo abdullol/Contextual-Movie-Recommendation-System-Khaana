@@ -10,7 +10,7 @@ namespace Movie_Recommendation_System.Areas.Admin.ViewModels
     {
         public List<Movies> recMovies { get; set; }
         public List<Movies> topIMDB { get; set; }
-        public List<Movies> inCinema { get; set; }
+        public List<CinemaShowtimes> inCinema { get; set; }
 
     }
 }
