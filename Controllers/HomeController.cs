@@ -22,6 +22,60 @@ namespace Movie_Recommendation_System.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
+        //public ActionResult RecommendationItem()
+        //{
+        //    homePageVM obj = new homePageVM();
+        //    List<Movies> Movies = new List<Movies>();
+        //    string path = @"D:/Work/Movie_Recommendation_System/mrs/runAlgo.bat";
+        //    ThreadPool.QueueUserWorkItem(o =>
+        //    {
+        //        var user = User.Identity.GetUserId();
+
+        //        var proc = new Process
+        //        {
+        //            StartInfo = new ProcessStartInfo
+        //            {
+        //                FileName = path,
+        //                Arguments = User.Identity.GetUserId(),
+        //                UseShellExecute = false,
+        //                RedirectStandardOutput = true,
+        //                CreateNoWindow = true
+        //            }
+        //        };
+        //        proc.Start();
+        //        string line = string.Empty;
+        //        //reading file till end
+        //        while (!proc.StandardOutput.EndOfStream)
+        //        {
+        //            line = proc.StandardOutput.ReadLine();
+        //            int con;
+        //            if (Int32.TryParse(line, out con))
+        //            {
+        //                Movies.Add(db.Movies.Find(con));
+        //            }
+        //        }
+        //    });
+
+        //    for (int i = 0; i < 10; ++i)
+        //    {
+        //        Task.WaitAll(Task.Delay(2000));
+        //    }
+        //    if (Movies.Count == 0)
+        //    {
+        //        Random rand = new Random();
+        //        for (int i = 0; i < 11; i++)
+        //        {
+        //            int j = rand.Next(1, 1056);
+        //            Movies.Add(db.Movies.Find(j));
+        //        }
+        //    }
+        //    else
+        //    {
+        //        obj.recMovies = Movies;
+        //    }
+
+        //    return PartialView();
+        //}
         [Authorize]
         public ActionResult Index()
         {
@@ -79,9 +133,7 @@ namespace Movie_Recommendation_System.Controllers
                     }
                 };
                 proc.Start();
-
                 string line = string.Empty;
-
                 //reading file till end
                 while (!proc.StandardOutput.EndOfStream)
                 {
@@ -92,7 +144,6 @@ namespace Movie_Recommendation_System.Controllers
                         Movies.Add(db.Movies.Find(con));
                     }
                 }
-                //proc.WaitForExit();
             });
 
             for (int i = 0; i < 10; ++i)
@@ -101,7 +152,12 @@ namespace Movie_Recommendation_System.Controllers
             }
             if (Movies.Count == 0)
             {
-                obj.recMovies = topIMDB.Take(11).ToList();
+                Random rand = new Random();
+                for (int i = 0; i < 11; i++)
+                {
+                    int j = rand.Next(1, 1056);
+                    Movies.Add(db.Movies.Find(j));
+                }
             }
             else
             {
@@ -160,6 +216,50 @@ namespace Movie_Recommendation_System.Controllers
         {
             ViewBag.Message = "Your contact page.";
             return View();
+        }
+
+        public JsonResult WatchList(string id, string url)
+        {
+            int autoId = 0;
+            int.TryParse(id, out autoId);
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Json("Not Authenticated");
+            }
+
+            if (autoId.Equals(0))
+            {
+                return Json("<br />Sorry! Record doesn't exists.");
+            }
+
+            var identityUser = User.Identity.GetUserId();
+
+            var isIt = db.Watchlists.Where(u => u.movieId == autoId &&
+              u.userId.Equals(identityUser)).FirstOrDefault();
+
+            if (isIt != null)
+            {
+                HttpCookie httpCookie = new HttpCookie(url, "true");
+                Response.Cookies.Add(httpCookie);
+                return Json("<br/>Thanks You Have Already Voted");
+            }
+
+            var movie = db.Movies.Where(m => m.Id == autoId).FirstOrDefault();
+
+            db.Entry(movie).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var watchListUpdated = new Watchlist()
+            {
+                userId = User.Identity.GetUserId(),
+                movieId = autoId
+            };
+
+            db.Watchlists.Add(watchListUpdated);
+            db.SaveChanges();
+
+            return Json("good");
         }
 
         public JsonResult SendRating(string r, string id, string url)
@@ -242,7 +342,6 @@ namespace Movie_Recommendation_System.Controllers
             return View(db.CinemaShowtimes.Include("CinemaInstance").Include("MoviesInstance").ToList());
         }
 
-
         public ActionResult GetMovie(int id)
         {
             using (var _context = new ApplicationDbContext())
@@ -255,6 +354,13 @@ namespace Movie_Recommendation_System.Controllers
 
                 return View(movies);
             }
+        }
+
+        public ActionResult GetWatchList(int? page)
+        {
+            var _currentUserId = User.Identity.GetUserId();
+            var _watchList = db.Watchlists.Where(u => u.userId.Equals(_currentUserId)).Include("MovieInstance").ToList().ToPagedList(page ?? 1, 10);
+            return View(_watchList);
         }
     }
 }

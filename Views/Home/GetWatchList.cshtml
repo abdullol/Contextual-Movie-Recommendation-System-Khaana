@@ -1,0 +1,168 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Movie_Recommendation_System.Models.Watchlist>
+
+@{
+    ViewBag.Title = "Watch List";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div id="content" class="site-content">
+
+
+    <section id="amy-page-header" class="has-page-title ">
+        <div class="amy-page-title amy-left"><div class="amy-inner container"><h1 class="page-title">Watch List</h1><div class="amy-breadcrumb"><span property="itemListElement" typeof="ListItem"><meta property="position" content="1"></span></div></div></div>
+
+    </section>
+    <section class="main-content page-layout-right">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-md-8">
+                    <div class="page-content">
+                        <div class="amy-section wpb_row  ">
+                            <div class="vc_row wpb_row vc_row-fluid">
+                                <div class="wpb_column vc_column_container vc_col-sm-12">
+                                    <div class="vc_column-inner">
+                                        <div class="wpb_wrapper">
+                                            <div class="amy-movie-layout-list ">
+                                                <div class="amy-movie-list">
+                                                    <div class="amy-movie-items">
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <div class="amy-movie-item entry-item">
+                                                                <div class="amy-movie-item-inner">
+                                                                    <div class="amy-movie-item-front">
+                                                                        <div class="amy-movie-item-poster">
+
+                                                                            <img width="196" height="336" src="@Html.DisplayFor(modelItem => item.MovieInstance.MoviePoster)" />
+
+                                                                            <span class="amy-movie-field-imdb">7.9</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="amy-movie-item-back">
+                                                                        <div class="amy-movie-item-back-inner">
+                                                                            <div class="amy-movie-item-content">
+                                                                                <h3 class="amy-movie-field-title"><a href="@Url.Action("getMovie", "Home", new { id = item.MovieInstance.Id })">@Html.DisplayFor(modelItem => item.MovieInstance.MovieName)</a></h3>
+
+                                                                                <div class="amy-movie-item-meta">
+                                                                                    <span class="amy-movie-field-mpaa">@Html.DisplayFor(modelItem => item.MovieInstance.PGRating)</span>
+                                                                                    <span class="amy-movie-field-duration"><i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.MovieInstance.MovieDuration)</span>
+                                                                                </div>
+
+
+                                                                                <div class="amy-movie-custom-field-group amy-movie-field-release_date">
+                                                                                    <label class="amy-movie-custom-field-label">IMDB Rating:</label>
+                                                                                    <div class="amy-movie-custom-field-content">
+                                                                                        @Html.DisplayFor(modelItem => item.MovieInstance.MovieRating)
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="amy-movie-custom-field-group amy-movie-field-amy_genre">
+                                                                                    <label class="amy-movie-custom-field-label">Genre:</label>
+                                                                                    <div class="amy-movie-custom-field-content">
+
+                                                                                        @Html.DisplayFor(modelItem => item.MovieInstance.MovieGenre)
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="amy-movie-custom-field-group amy-movie-field-amy_actor">
+                                                                                    <label class="amy-movie-custom-field-label">Actor:</label>
+                                                                                    <div class="amy-movie-custom-field-content">
+
+                                                                                        @Html.DisplayFor(modelItem => item.MovieInstance.Actor)
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="amy-movie-custom-field-group amy-movie-field-amy_director">
+                                                                                    <label class="amy-movie-custom-field-label">Director:</label>
+                                                                                    <div class="amy-movie-custom-field-content">
+
+                                                                                        @Html.DisplayFor(modelItem => item.MovieInstance.Director)
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="amy-movie-item-button">
+                                                                                <a class="amy-btn-icon-text link-detail" href="@Url.Action("getMovie", "Home", new { id = item.MovieInstance.Id })">
+                                                                                    <i class="fa fa-info"></i>Detail
+                                                                                </a>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        }
+
+                                                    </div>
+
+
+                                                    <div class="amy-pagination">
+
+                                                        <div class="clear"></div>
+                                                        <nav class="amy-pagination">
+                                                            <div class="amy-shadow">
+                                                                @Html.PagedListPager(Model, page => Url.Action("Movies", new { page }));
+                                                                @*<span aria-current="page" class="page-numbers current">1</span><a class="page-numbers" href="page/2/index.html">2</a><a class="next page-numbers" href="page/2/index.html">Next</a>*@
+                                                            </div>
+                                                        </nav>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                    <div class="col-md-12">
+                    </div>
+                </div>*@
+        </div>
+    </section>
+
+</div>
+@*<div id="amy-loading"><span></span></div>*@
+@section Styles {
+    <style>
+        .pagination {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /*background-color: #333;*/
+        }
+
+            .pagination > li {
+                float: left;
+                border-right: 1px solid #bbb;
+            }
+
+                .pagination > li:last-child {
+                    border-right: none;
+                }
+
+                .pagination > li a {
+                    display: block;
+                    color: Black;
+                    text-align: center;
+                    padding: 8px 10px;
+                    text-decoration: none;
+                }
+
+                    .pagination > li a:hover:not(.active) {
+                        background-color: #4CAF50;
+                    }
+
+                .pagination > li > .active {
+                    background-color: #4CAF50;
+                }
+    </style>
+
+
+}
+

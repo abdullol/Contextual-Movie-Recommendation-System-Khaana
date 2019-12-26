@@ -24,7 +24,6 @@
                                     <h4 class="entry-title"><a href="@Url.Action("GetMovie", "Home", new { id = item.Id })">@Html.DisplayFor(modelItem => item.MovieName)</a></h4>
                                 </div>
                             </div>
-
                         }
                     </div>
 
@@ -55,7 +54,6 @@
                                     <h4 class="entry-title"><a href="@Url.Action("GetMovie", "Home", new { id = item.Id })">@Html.DisplayFor(modelItem => item.MovieName)</a></h4>
                                 </div>
                             </div>
-
                         }
                     </div>
 
@@ -83,7 +81,7 @@
                             <div class="item">
                                 <div class="carousel-col">
                                     <img src="@Html.DisplayFor(modelItem => item.MoviesInstance.MoviePoster)" class="img-responsive">
-                                    <h4 class="entry-title"><a href="@Url.Action("GetMovie", "Home", new { id = item.Id })">@Html.DisplayFor(modelItem => item.MoviesInstance.MovieName)</a></h4>
+                                    <h4 class="entry-title"><a href="@Url.Action("GetMovie", "Home", new { id = item.MoviesId })">@Html.DisplayFor(modelItem => item.MoviesInstance.MovieName)</a></h4>
                                 </div>
                             </div>
                         }

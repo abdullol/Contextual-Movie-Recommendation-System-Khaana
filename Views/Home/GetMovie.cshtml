@@ -5,8 +5,7 @@
     var url = Request.Url.AbsolutePath;
 }
 
-
-<section class="main-content amy-movie single-movie layout-right  no-banner">
+<section class="main-content amy-movie single-movie layout-right no-banner">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -19,7 +18,7 @@
                             </div>
                             <div class="entry-info">
 
-                                <h1 class="entry-title p-name" itemprop="name headline"><a href="index.html" rel="bookmark" class="u-url url" itemprop="url">@Html.DisplayFor(item => item.MovieName)</a></h1>
+                                <h1 class="entry-title p-name" itemprop="name headline">@Html.DisplayFor(item => item.MovieName)</h1>
                                 <div class="entry-pg">
                                     <span class="pg">@Html.DisplayFor(item => item.PGRating)</span>
 
@@ -27,6 +26,9 @@
                                         <i class="fa fa-clock-o"></i>
                                         @Html.DisplayFor(item => item.MovieDuration)
                                     </span>
+
+                                    @Html.Partial("_WatchList");
+
                                 </div>
 
                                 <ul class="info-list">
@@ -72,9 +74,6 @@
                                 @Html.DisplayFor(item => item.Story)
                             </p>
                         </div>
-
-
-
                     </article>
                 </div>
             </div>
@@ -96,5 +95,22 @@
                         jQuery("#lblResult").html("<br /> Error occured");
                     });
     </script>
+
+    <script type="text/javascript">
+        jQuery(".watch-list").click(function () {
+                        var urlForAction = "/Home/WatchList?id=@Model.Id&url=@url";
+                        jQuery.post(urlForAction, null, function (data) {
+                            jQuery('#lblResult').html(data);
+                        });
+                    });
+                    jQuery("#lblResult").ajaxStart(function () {
+                        jQuery("#lblResult").html("Processing...");
+                    });
+                    jQuery("#lblResult").ajaxError(function () {
+                        jQuery("#lblResult").html("<br /> Error occured");
+                    });
+    </script>
+
+
 
 }

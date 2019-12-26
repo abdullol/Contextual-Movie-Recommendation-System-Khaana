@@ -68,6 +68,7 @@ namespace Movie_Recommendation_System.Models
         public virtual DbSet<Cinemas> Cinemas { get; set; }
         public virtual DbSet<CinemaShowtimes> CinemaShowtimes { get; set; }
         public virtual DbSet<Ratings> Ratings { get; set; }
+        public virtual DbSet<Watchlist> Watchlists { get; set; }
     }
 
     //public class MRSIdentityUser : IdentityUser

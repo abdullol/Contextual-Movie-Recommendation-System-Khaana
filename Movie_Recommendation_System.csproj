@@ -250,12 +250,16 @@
     <Compile Include="Migrations\201912251014355_update-all-model-validations.Designer.cs">
       <DependentUpon>201912251014355_update-all-model-validations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912252016514_watchlist-table-added.cs" />
+    <Compile Include="Migrations\201912252016514_watchlist-table-added.Designer.cs">
+      <DependentUpon>201912252016514_watchlist-table-added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Ratings.cs" />
-    <Compile Include="Models\Test.cs" />
+    <Compile Include="Models\Watchlist.cs" />
     <Compile Include="Models\UserContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -7636,6 +7640,9 @@
     <Content Include="Views\Home\GetTopIMDB.cshtml" />
     <Content Include="Views\Shared\AdminLoginPartial.cshtml" />
     <Content Include="Views\Home\GetShowtimes.cshtml" />
+    <Content Include="Views\Shared\_WatchList.cshtml" />
+    <Content Include="Views\Home\GetWatchList.cshtml" />
+    <Content Include="Views\Shared\_RecommendationBar.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -7689,6 +7696,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912251014355_update-all-model-validations.resx">
       <DependentUpon>201912251014355_update-all-model-validations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912252016514_watchlist-table-added.resx">
+      <DependentUpon>201912252016514_watchlist-table-added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

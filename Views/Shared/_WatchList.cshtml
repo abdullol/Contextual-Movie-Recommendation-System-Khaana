@@ -1,0 +1,16 @@
+﻿@{
+    var url = Request.Url.AbsolutePath;
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <text>Please <a href="/Account/Login?ReturnUrl=@Request.Url.AbsolutePath" title="login to bookmark">Login</a> to Bookmark</text>
+}
+
+@if (Request.Cookies[url] == null)
+{
+    <span class="watch-list" style="background-color:orangered; padding:7px; color:white; " data-value="1">
+        <i class="fa fa-fw fa-bookmark"></i> Bookmark Item
+    </span>
+    <label id="lblResult"></label>
+}
