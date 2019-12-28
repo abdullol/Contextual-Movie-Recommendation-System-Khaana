@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Movie_Recommendation_System.Areas.Admin.ViewModels;
 using Movie_Recommendation_System.Models;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,14 @@ namespace Movie_Recommendation_System.Controllers
         ApplicationDbContext _context = new ApplicationDbContext();
         public ActionResult UserProfile()
         {
-            var userId = int.Parse(User.Identity.GetUserId());
+            UserProfileVM _userProfileVM = new UserProfileVM();
 
-            ApplicationUser _currentUser = _context.Users.FirstOrDefault(u => u.Id == userId);
+            var _currentUserId = User.Identity.GetUserId().ToString();
 
-            var currentUser = new ApplicationUser
-            {
-                Id = _currentUser.Id,
-                Email = _currentUser.Email,
-                UserName = _currentUser.UserName
-            };
+            //_userProfileVM.ApplicationUsers = _context.Users.FirstOrDefault(u => u.Id == _currentUserId);
+            _userProfileVM.Watchlists = _context.Watchlists.Where(w => w.userId.Equals(_currentUserId)).ToList();
 
-
-            return View(currentUser);
+            return View(_userProfileVM);
         }
     }
 }

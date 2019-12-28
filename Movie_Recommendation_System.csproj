@@ -202,6 +202,7 @@
     <Compile Include="Areas\Admin\Models\ProjectEnum.cs" />
     <Compile Include="Areas\Admin\ViewModels\CinemaMoviesVM.cs" />
     <Compile Include="Areas\Admin\ViewModels\homePageVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\UserProfileVM.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -253,6 +254,10 @@
     <Compile Include="Migrations\201912252016514_watchlist-table-added.cs" />
     <Compile Include="Migrations\201912252016514_watchlist-table-added.Designer.cs">
       <DependentUpon>201912252016514_watchlist-table-added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912262359258_watchlist-user-tostring.cs" />
+    <Compile Include="Migrations\201912262359258_watchlist-user-tostring.Designer.cs">
+      <DependentUpon>201912262359258_watchlist-user-tostring.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -7699,6 +7704,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912252016514_watchlist-table-added.resx">
       <DependentUpon>201912252016514_watchlist-table-added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912262359258_watchlist-user-tostring.resx">
+      <DependentUpon>201912262359258_watchlist-user-tostring.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

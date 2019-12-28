@@ -11,8 +11,16 @@
 <div id="content" class="site-content">
     <div class="container">
         <div class="row">
+
             <div class="col-xs-11 col-md-10 col-centered">
-                <h4 class="amy-title amy-widget-title">  Recommended Movies</h4>
+                @if (Request.IsAuthenticated)
+                {
+                    <h4 class="amy-title amy-widget-title">  Recommended Movies</h4>
+                }
+                else
+                {
+                    <h4 class="amy-title amy-widget-title">  Random Movies</h4>
+                }
                 <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
                     <div class="carousel-inner">
 
@@ -72,7 +80,7 @@
                     </div>
                 </div>
                 <br />
-                <h4 class="amy-title amy-widget-title">  Contextualised Recommendation</h4>
+                <h4 class="amy-title amy-widget-title">  In Cinemas</h4>
                 <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
                     <div class="carousel-inner c2">
 

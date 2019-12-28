@@ -22,61 +22,8 @@ namespace Movie_Recommendation_System.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        //public ActionResult RecommendationItem()
-        //{
-        //    homePageVM obj = new homePageVM();
-        //    List<Movies> Movies = new List<Movies>();
-        //    string path = @"D:/Work/Movie_Recommendation_System/mrs/runAlgo.bat";
-        //    ThreadPool.QueueUserWorkItem(o =>
-        //    {
-        //        var user = User.Identity.GetUserId();
-
-        //        var proc = new Process
-        //        {
-        //            StartInfo = new ProcessStartInfo
-        //            {
-        //                FileName = path,
-        //                Arguments = User.Identity.GetUserId(),
-        //                UseShellExecute = false,
-        //                RedirectStandardOutput = true,
-        //                CreateNoWindow = true
-        //            }
-        //        };
-        //        proc.Start();
-        //        string line = string.Empty;
-        //        //reading file till end
-        //        while (!proc.StandardOutput.EndOfStream)
-        //        {
-        //            line = proc.StandardOutput.ReadLine();
-        //            int con;
-        //            if (Int32.TryParse(line, out con))
-        //            {
-        //                Movies.Add(db.Movies.Find(con));
-        //            }
-        //        }
-        //    });
-
-        //    for (int i = 0; i < 10; ++i)
-        //    {
-        //        Task.WaitAll(Task.Delay(2000));
-        //    }
-        //    if (Movies.Count == 0)
-        //    {
-        //        Random rand = new Random();
-        //        for (int i = 0; i < 11; i++)
-        //        {
-        //            int j = rand.Next(1, 1056);
-        //            Movies.Add(db.Movies.Find(j));
-        //        }
-        //    }
-        //    else
-        //    {
-        //        obj.recMovies = Movies;
-        //    }
-
-        //    return PartialView();
-        //}
-        [Authorize]
+        
+        
         public ActionResult Index()
         {
             List<CinemaShowtimes> _showTimesList = new List<CinemaShowtimes>();
@@ -150,7 +97,7 @@ namespace Movie_Recommendation_System.Controllers
             {
                 Task.WaitAll(Task.Delay(2000));
             }
-            if (Movies.Count == 0)
+            if (Movies.Count == 0 || !Request.IsAuthenticated)
             {
                 Random rand = new Random();
                 for (int i = 0; i < 11; i++)
@@ -158,6 +105,7 @@ namespace Movie_Recommendation_System.Controllers
                     int j = rand.Next(1, 1056);
                     Movies.Add(db.Movies.Find(j));
                 }
+                obj.recMovies = Movies;
             }
             else
             {
@@ -180,25 +128,31 @@ namespace Movie_Recommendation_System.Controllers
             //1234User.. 1 / 1 / 2019 12:00:00 AM
 
             List<CinemaShowtimes> filteredData = new List<CinemaShowtimes>();
-
-            foreach (var item in obj.recMovies)
+            if (Request.IsAuthenticated)
             {
-                var _contextualItem = db.CinemaShowtimes.Where(t => t.MoviesId == item.Id &&
-                string.Compare(t.Location, _userLocation, true) == 0 &&
-                t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
-                 t.ShowDay.Day >= _currentDay).ToList();
+                foreach (var item in obj.recMovies)
+                {
+                    var _contextualItem = db.CinemaShowtimes.Where(t => t.MoviesId == item.Id &&
+                    string.Compare(t.Location, _userLocation, true) == 0 &&
+                    t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
+                     t.ShowDay.Day >= _currentDay).ToList();
 
-                filteredData.AddRange(_contextualItem);
+                    filteredData.AddRange(_contextualItem);
+                }
+
+                obj.inCinema = filteredData.ToList();
             }
-
-            obj.inCinema = filteredData.ToList();
+            else 
+            {
+                obj.inCinema = db.CinemaShowtimes.Include("MoviesInstance").Take(11).ToList();            
+            }
 
             if (obj.inCinema.Count <= 0)
             {
                 return View(obj);
             }
 
-            if (obj.inCinema.Count > 0 || obj.inCinema.Count < 5)
+            if (obj.inCinema.Count > 0 && obj.inCinema.Count < 5)
             {
                 //obj.recMovies = obj.inCinema + obj.recMovies;
             }
@@ -361,6 +315,14 @@ namespace Movie_Recommendation_System.Controllers
             var _currentUserId = User.Identity.GetUserId();
             var _watchList = db.Watchlists.Where(u => u.userId.Equals(_currentUserId)).Include("MovieInstance").ToList().ToPagedList(page ?? 1, 10);
             return View(_watchList);
+        }
+
+        public ActionResult DeleteWatchlist(int id)
+        {
+            Watchlist _watchlist = db.Watchlists.Find(id);
+            db.Watchlists.Remove(_watchlist);
+            db.SaveChanges();
+            return RedirectToAction("GetWatchList");
         }
     }
 }

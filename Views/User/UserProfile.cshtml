@@ -1,11 +1,159 @@
-﻿@model Movie_Recommendation_System.Models.ApplicationUser
+﻿@model Movie_Recommendation_System.Areas.Admin.ViewModels.UserProfileVM
 @{
     ViewBag.Title = "UserProfile";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
+<style>
+    .top {
+        margin-top: 30px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        @*<div class="col-md-5 top">
+            <div class="col-md-10">
+                <img src="~/Vendor/AdminAsset/dist/img/avatar5.png" class="col-md-6" />
+            </div>
+            <div class="col-md-10">
+                <div class="row-md-4">
+                    <h4>Name</h4>
+                    <p>@Model.ApplicationUsers.UserName</p>
+                </div>
+                <div class="row-md-6">
+                    <h4>Email</h4>
+                    <p>@Model.ApplicationUsers.Email</p>
+                </div>
+            </div>
+        </div>*@
+        <div class="col-md-5 top">
+            <div class="page-content">
+                <div class="amy-section wpb_row  ">
+                    <div class="vc_row wpb_row vc_row-fluid">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner">
+                                <div class="wpb_wrapper">
+                                    <div class="amy-movie-layout-list ">
+                                        <div class="amy-movie-list">
+                                            <div class="amy-movie-items">
+                                                @foreach (var item in Model.Watchlists)
+                                                {
+                                                    <div class="amy-movie-item entry-item">
+                                                        <div class="amy-movie-item-inner">
+                                                            <div class="amy-movie-item-front">
+                                                                <div class="amy-movie-item-poster">
 
-<h2>@Model.UserName</h2>
-<h2>@Model.Email</h2>
-<h2>@Model.PasswordHash</h2>
-<h2>@Model.Id</h2>
+                                                                    <img width="196" height="336" src="@Html.DisplayFor(modelItem => item.MovieInstance.MoviePoster)" />
+
+                                                                    <span class="amy-movie-field-imdb">7.9</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="amy-movie-item-back">
+                                                                <div class="amy-movie-item-back-inner">
+                                                                    <div class="amy-movie-item-content">
+                                                                        <h3 class="amy-movie-field-title"><a href="@Url.Action("getMovie", "Home", new { id = item.MovieInstance.Id })">@Html.DisplayFor(modelItem => item.MovieInstance.MovieName)</a></h3>
+
+                                                                        <div class="amy-movie-item-meta">
+                                                                            <span class="amy-movie-field-mpaa">@Html.DisplayFor(modelItem => item.MovieInstance.PGRating)</span>
+                                                                            <span class="amy-movie-field-duration"><i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.MovieInstance.MovieDuration)</span>
+                                                                        </div>
+
+
+                                                                        <div class="amy-movie-custom-field-group amy-movie-field-release_date">
+                                                                            <label class="amy-movie-custom-field-label">IMDB Rating:</label>
+                                                                            <div class="amy-movie-custom-field-content">
+                                                                                @Html.DisplayFor(modelItem => item.MovieInstance.MovieRating)
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="amy-movie-custom-field-group amy-movie-field-amy_genre">
+                                                                            <label class="amy-movie-custom-field-label">Genre:</label>
+                                                                            <div class="amy-movie-custom-field-content">
+
+                                                                                @Html.DisplayFor(modelItem => item.MovieInstance.MovieGenre)
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="amy-movie-custom-field-group amy-movie-field-amy_actor">
+                                                                            <label class="amy-movie-custom-field-label">Actor:</label>
+                                                                            <div class="amy-movie-custom-field-content">
+
+                                                                                @Html.DisplayFor(modelItem => item.MovieInstance.Actor)
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="amy-movie-custom-field-group amy-movie-field-amy_director">
+                                                                            <label class="amy-movie-custom-field-label">Director:</label>
+                                                                            <div class="amy-movie-custom-field-content">
+
+                                                                                @Html.DisplayFor(modelItem => item.MovieInstance.Director)
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="amy-movie-item-button">
+                                                                        <a class="amy-btn-icon-text link-detail" href="@Url.Action("getMovie", "Home", new { id = item.movieId})">
+                                                                            <i class="fa fa-info"></i>Detail
+                                                                        </a>
+                                                                        <a style="background-color:orangered; padding:10px; color:white; text-align:left" href="@Url.Action("DeleteWatchlist", "Home", new { id=item.Id  })">
+                                                                            <i></i>Delete
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                }
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .pagination {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /*background-color: #333;*/
+        }
+
+            .pagination > li {
+                float: left;
+                border-right: 1px solid #bbb;
+            }
+
+                .pagination > li:last-child {
+                    border-right: none;
+                }
+
+                .pagination > li a {
+                    display: block;
+                    color: Black;
+                    text-align: center;
+                    padding: 8px 10px;
+                    text-decoration: none;
+                }
+
+                    .pagination > li a:hover:not(.active) {
+                        background-color: #4CAF50;
+                    }
+
+                .pagination > li > .active {
+                    background-color: #4CAF50;
+                }
+    </style>
+
+
+}
 
