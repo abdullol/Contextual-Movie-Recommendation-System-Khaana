@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Movie_Recommendation_System.Areas.Admin.ViewModels;
 using Movie_Recommendation_System.Models;
-using System;
-using System.Collections.Generic;
+using PagedList;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Movie_Recommendation_System.Controllers
@@ -17,10 +14,9 @@ namespace Movie_Recommendation_System.Controllers
         {
             UserProfileVM _userProfileVM = new UserProfileVM();
 
-            var _currentUserId = User.Identity.GetUserId().ToString();
-
-            //_userProfileVM.ApplicationUsers = _context.Users.FirstOrDefault(u => u.Id == _currentUserId);
-            _userProfileVM.Watchlists = _context.Watchlists.Where(w => w.userId.Equals(_currentUserId)).ToList();
+            var _currentUserId = int.Parse(User.Identity.GetUserId());
+            _userProfileVM.ApplicationUsers = _context.Users.Find(_currentUserId);
+            _userProfileVM.Watchlists = _context.Watchlists.Include("MovieInstance").Where(w => w.userId.Equals(_currentUserId.ToString())).ToList();
 
             return View(_userProfileVM);
         }

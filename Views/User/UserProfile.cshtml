@@ -10,7 +10,7 @@
 </style>
 <div class="container">
     <div class="row">
-        @*<div class="col-md-5 top">
+        <div class="col-md-5 top">
             <div class="col-md-10">
                 <img src="~/Vendor/AdminAsset/dist/img/avatar5.png" class="col-md-6" />
             </div>
@@ -24,17 +24,20 @@
                     <p>@Model.ApplicationUsers.Email</p>
                 </div>
             </div>
-        </div>*@
-        <div class="col-md-5 top">
+        </div>
+        <div class="col-md-7 top">
+            <div class="col-md-12" style="background-color:red">
+                <p style="margin-bottom:0px;color:white; font-size:20px; font-family:Arial; padding:10px; font-weight:bold">WATCHLIST ITEM</p>
+            </div>
             <div class="page-content">
-                <div class="amy-section wpb_row  ">
+                <div class="amy-section wpb_row">
                     <div class="vc_row wpb_row vc_row-fluid">
                         <div class="wpb_column vc_column_container vc_col-sm-12">
                             <div class="vc_column-inner">
                                 <div class="wpb_wrapper">
                                     <div class="amy-movie-layout-list ">
                                         <div class="amy-movie-list">
-                                            <div class="amy-movie-items">
+                                            <div class="amy-movie-items top">
                                                 @foreach (var item in Model.Watchlists)
                                                 {
                                                     <div class="amy-movie-item entry-item">

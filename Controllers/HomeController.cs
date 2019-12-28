@@ -22,8 +22,6 @@ namespace Movie_Recommendation_System.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        
-        
         public ActionResult Index()
         {
             List<CinemaShowtimes> _showTimesList = new List<CinemaShowtimes>();
@@ -142,9 +140,9 @@ namespace Movie_Recommendation_System.Controllers
 
                 obj.inCinema = filteredData.ToList();
             }
-            else 
+            else
             {
-                obj.inCinema = db.CinemaShowtimes.Include("MoviesInstance").Take(11).ToList();            
+                obj.inCinema = db.CinemaShowtimes.Include("MoviesInstance").Take(11).ToList();
             }
 
             if (obj.inCinema.Count <= 0)
