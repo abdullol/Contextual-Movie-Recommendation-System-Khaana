@@ -25,32 +25,10 @@ namespace Movie_Recommendation_System.Controllers
         public ActionResult Index()
         {
             List<CinemaShowtimes> _showTimesList = new List<CinemaShowtimes>();
-            //http://www.geoplugin.net/asp.gp?ip=xx.xx.xx.xx
-            //http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx
-            //https://jsonplaceholder.typicode.com/posts/1/comments
 
-            //Reading the user's current location
-            string _strTestUrl = String.Format("http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx");
-            WebRequest _requestObjGet = WebRequest.Create(_strTestUrl);
-            _requestObjGet.Method = "GET";
-            HttpWebResponse _responseObjGet = null;
-            _responseObjGet = (HttpWebResponse)_requestObjGet.GetResponse();
+            //http://www.geoplugin.net
 
-            string _strResultTest = null;
-
-            //reading the Stream from Response object
-            using (Stream stream = _responseObjGet.GetResponseStream())
-            {
-                StreamReader sr = new StreamReader(stream);
-                _strResultTest = sr.ReadToEnd();
-                sr.Close();
-            }
-
-            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-
-            UserContext objList = (UserContext)serializer.Deserialize(_strResultTest, typeof(UserContext));
-
-            string _userLocation = objList.geoplugin_city;
+            string _userLocation = GetUserCurrentLocation();
 
             //makeing list of top rated movies by IMDB
             homePageVM obj = new homePageVM();
@@ -110,20 +88,8 @@ namespace Movie_Recommendation_System.Controllers
                 obj.recMovies = Movies;
             }
 
-            var year = DateTime.Today.Year;
-            var date = DateTime.Today.Day;
-            var now = DateTime.Now;
-            var hour = now.Hour;
-            var minute = now.Minute;
-            var sec = now.Second;
-            var month = now.Month;
-            var _currentDay = DateTime.Now.DayOfYear;
-
-            //db.CinemaShowtimes.FirstOrDefault(t => t.MoviesId == item.Id &&
-            //    t.ShowDay >= DateTime.Now && string.Compare(t.Location, _userLocation, true) == 0);
-            //obj.inCinema.Add(_contextualItem);
-
-            //1234User.. 1 / 1 / 2019 12:00:00 AM
+            int year, month, _currentDay;
+            GetContextualFeature(out year, out month, out _currentDay);
 
             List<CinemaShowtimes> filteredData = new List<CinemaShowtimes>();
             if (Request.IsAuthenticated)
@@ -147,7 +113,7 @@ namespace Movie_Recommendation_System.Controllers
 
             if (obj.inCinema.Count <= 0)
             {
-                return View(obj);
+                return View(obj.inCinema);
             }
 
             if (obj.inCinema.Count > 0 && obj.inCinema.Count < 5)
@@ -156,6 +122,41 @@ namespace Movie_Recommendation_System.Controllers
             }
 
             return View(obj);
+        }
+
+        private static void GetContextualFeature(out int year, out int month, out int _currentDay)
+        {
+            year = DateTime.Today.Year;
+            var now = DateTime.Now;
+            month = now.Month;
+            _currentDay = DateTime.Now.DayOfYear;
+        }
+
+        private static string GetUserCurrentLocation()
+        {
+            //Reading the user's current location
+            string _strTestUrl = String.Format("http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx");
+            WebRequest _requestObjGet = WebRequest.Create(_strTestUrl);
+            _requestObjGet.Method = "GET";
+            HttpWebResponse _responseObjGet = null;
+            _responseObjGet = (HttpWebResponse)_requestObjGet.GetResponse();
+
+            string _strResultTest = null;
+
+            //reading the Stream from Response object
+            using (Stream stream = _responseObjGet.GetResponseStream())
+            {
+                StreamReader sr = new StreamReader(stream);
+                _strResultTest = sr.ReadToEnd();
+                sr.Close();
+            }
+
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+
+            UserContext objList = (UserContext)serializer.Deserialize(_strResultTest, typeof(UserContext));
+
+            string _userLocation = objList.geoplugin_city;
+            return _userLocation;
         }
 
         public ActionResult About()
@@ -291,7 +292,32 @@ namespace Movie_Recommendation_System.Controllers
 
         public ActionResult GetShowtimes()
         {
-            return View(db.CinemaShowtimes.Include("CinemaInstance").Include("MoviesInstance").ToList());
+            var _movieList = db.Movies.ToList();
+            string _userLocation = GetUserCurrentLocation();
+            int year, month, _currentDay;
+            GetContextualFeature(out year, out month, out _currentDay);
+
+            List<CinemaShowtimes> _fllterList = new List<CinemaShowtimes>();
+            homePageVM _homepageVM = new homePageVM();
+
+            foreach (var item in _movieList)
+            {
+                var _filteredData = db.CinemaShowtimes.Where(t => t.MoviesId == item.Id &&
+                  string.Compare(t.Location, _userLocation, true) == 0 &&
+              t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
+              t.ShowDay.Day >= _currentDay).Include("MoviesInstance").Include("CinemaInstance").ToList();
+
+                _fllterList.AddRange(_filteredData);
+            }
+
+            _homepageVM.inCinema = _fllterList.ToList();
+
+            //var _contextualItem = db.CinemaShowtimes.Where(t => t.MoviesId == item.Id &&
+            //string.Compare(t.Location, _userLocation, true) == 0 &&
+            //t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
+            //t.ShowDay.Day >= _currentDay).ToList();
+
+            return View(_homepageVM);
         }
 
         public ActionResult GetMovie(int id)

@@ -84,11 +84,11 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="amy-movie-item-button">
-                                                                                <a class="amy-btn-icon-text link-detail" href="@Url.Action("getMovie", "Home", new { id = item.movieId})">
+                                                                                <a class="amy-btn-icon-text link-detail" style="padding:10px" href="@Url.Action("getMovie", "Home", new { id = item.movieId})">
                                                                                     <i class="fa fa-info"></i>Detail
                                                                                 </a>
-                                                                                <a style="background-color:orangered; padding:10px; color:white; text-align:left" href="@Url.Action("DeleteWatchlist", "Home", new { id=item.Id  })">
-                                                                                    <i></i>Delete
+                                                                                <a href="@Url.Action("DeleteWatchlist", "Home", new { id=item.Id  })">
+                                                                                    <span style="background-color:orangered;color:white;padding:10px" class="amy-btn-showtimes showtime-btn">Delete</span>
                                                                                 </a>
                                                                             </div>
                                                                         </div>

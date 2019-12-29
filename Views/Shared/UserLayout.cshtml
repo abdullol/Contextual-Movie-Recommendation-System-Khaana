@@ -9,7 +9,8 @@
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="xmlrpc.php">
 
-
+    @*Website logo*@
+    <link rel="shortcut icon" @Url.Action("~/256-256.ico") type="image/x-icon" />
 
     @*<title>M.R.S</title>*@
     <link rel="dns-prefetch" href="http://fonts.googleapis.com/">
@@ -131,7 +132,7 @@
     <script type="text/javascript">
         function setREVStartSize(e) {
             try {
-            e.c = jQuery(e.c); var i = jQuery(window).width(), t = 9999, r = 0, n = 0, l = 0, f = 0, s = 0, h = 0;
+                e.c = jQuery(e.c); var i = jQuery(window).width(), t = 9999, r = 0, n = 0, l = 0, f = 0, s = 0, h = 0;
                 if (e.responsiveLevels && (jQuery.each(e.responsiveLevels, function (e, f) { f > i && (t = r = f, l = e), i > f && f > r && (r = f, n = e) }), t > r && (l = n)), f = e.gridheight[l] || e.gridheight[0] || e.gridheight, s = e.gridwidth[l] || e.gridwidth[0] || e.gridwidth, h = i / s, h = h > 1 ? 1 : h, f = Math.round(h * f), "fullscreen" == e.sliderLayout) { var u = (e.c.width(), jQuery(window).height()); if (void 0 != e.fullScreenOffsetContainer) { var c = e.fullScreenOffsetContainer.split(","); if (c) jQuery.each(c, function (e, i) { u = jQuery(i).length > 0 ? u - jQuery(i).outerHeight(!0) : u }), e.fullScreenOffset.split("%").length > 1 && void 0 != e.fullScreenOffset && e.fullScreenOffset.length > 0 ? u -= jQuery(window).height() * parseInt(e.fullScreenOffset, 0) / 100 : void 0 != e.fullScreenOffset && e.fullScreenOffset.length > 0 && (u -= parseInt(e.fullScreenOffset, 0)) } f = u } else void 0 != e.minHeight && f < e.minHeight && (f = e.minHeight); e.c.closest(".rev_slider_wrapper").css({ height: f })
             } catch (d) { console.log("Failure at Presize of Slider:" + d) }
         };</script>
@@ -198,10 +199,8 @@
                     <div class="pull-left">
                         <div id="amy-site-logo">
 
-                            <a href="index.html">
-                                <img class="amy-logo amy-logo1x" src="~/Vendor/UserAsset/wp-content/uploads/2019/04/img_66.png" alt="Demo">
-
-
+                            <a href="@Url.Action("Index","Home")">
+                                <img class="amy-logo amy-logo1x vcenter" src="~/Vendor/UserAsset/wp-content/uploads/2019/04/img_66.png" alt="Demo" style="height:70px; width:150px">
                             </a>
 
                         </div>

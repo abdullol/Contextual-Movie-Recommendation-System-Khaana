@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Movie_Recommendation_System.Areas.Admin.Models.CinemaShowtimes>
+﻿@model Movie_Recommendation_System.Areas.Admin.ViewModels.homePageVM
 @{
     ViewBag.Title = "GetShowtimes";
     Layout = "~/Views/Shared/UserLayout.cshtml";
@@ -36,7 +36,7 @@
                                                 <div class="amy-movie-layout-list amy-movie-showtimews-daily-2 ">
                                                     <div class="amy-movie-list">
                                                         <div class="amy-movie-items">
-                                                            @foreach (var item in Model)
+                                                            @foreach (var item in Model.inCinema)
                                                             {
                                                                 <div class="amy-movie-item row">
                                                                     <div class="amy-movie-item-inner col-md-9 col-sm-8">

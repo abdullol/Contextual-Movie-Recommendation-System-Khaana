@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.9.10\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props" Condition="Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.9.10\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -27,6 +28,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>3.4</TypeScriptToolsVersion>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerLaunchUrl>http://{ServiceIPAddress}</DockerLaunchUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -270,6 +273,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Areas\Admin\Views\Shared\Lockout.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Admin\Views\Cinemas\Create.cshtml" />
@@ -290,6 +294,9 @@
     <Content Include="Areas\Admin\Views\CinemaShowtimes\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\RegisterRole.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\RoleAssignment.cshtml" />
+    <None Include=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
     <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -304,7 +311,6 @@
     <Content Include="Content\images\icons\72-72.png" />
     <Content Include="Content\images\icons\96-96.png" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -319,6 +325,8 @@
     <Content Include="Areas\Admin\Views\UserRoles\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\UserRoles\Details.cshtml" />
     <Content Include="Areas\Admin\Views\UserRoles\Delete.cshtml" />
+    <None Include="Dockerfile" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -6890,151 +6898,7 @@
     <Content Include="Vendor\UserAsset\wp-content\themes\amy-movie\js\vendor\tooltipster.bundle8a54.js" />
     <Content Include="Vendor\UserAsset\wp-content\themes\amy-movie\js\vendor\TweenMax.min24fc.js" />
     <Content Include="Vendor\UserAsset\wp-content\themes\amy-movie\js\vendor\widget.mine899.js" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_11-120x85.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_11-360x240.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_11.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_2-1-360x240.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_2-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_3-1-120x85.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_3-1-360x240.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_3-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_7-1-120x85.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_7-1-360x240.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_7-1-360x430.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\image_7-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_10-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_10-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_10-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_10-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_11-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_11-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_11-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_11-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_12-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_12-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_12-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_12-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_13-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_13-1-164x220.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_13-1-196x294.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_13-1-196x336.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_13-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_13-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_13-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_14-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_14-1-164x220.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_14-1-196x294.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_14-1-196x336.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_14-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_14-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_14-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1-164x220.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1-196x294.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1-196x336.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1-214x321.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1-264x396.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_15-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1-164x220.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1-196x294.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1-196x336.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1-214x321.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1-264x396.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1-164x220.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1-196x294.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1-196x336.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1-214x321.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1-264x396.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_17-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-118x159.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-164x220.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-196x294.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-196x336.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-214x321.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1-264x396.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_18-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-118x159.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-164x220.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-196x294.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-196x336.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-214x321.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-264x396.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-118x159.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-164x220.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-196x294.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-196x336.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-214x321.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1-264x396.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_20-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_26.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_27.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_28.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_29.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_3-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_3-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_3-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_30.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_31.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_32.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_33.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_34.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_35.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_36.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_37.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_39.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_4-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_4-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_4-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_46.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_47.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_48.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_49.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_5-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_5-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_5-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_56-120x85.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_56-360x240.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_56.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_57-120x85.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_57-360x240.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_57.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_6-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_6-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_6-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_62.png" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_63.png" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_65.png" />
     <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_66.png" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_7-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_7-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_7-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_8-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_8-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_8-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_9-1-150x150.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_9-1-205x347.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_9-1-214x368.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_9-1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\mvcnm1.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\mvcnm2.jpg" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\mvcnm3.jpg" />
     <Content Include="Vendor\UserAsset\wp-includes\css\dist\block-library\style.min3c21.css" />
     <Content Include="Vendor\UserAsset\wp-includes\js\comment-reply.min3c21.js" />
     <Content Include="Vendor\UserAsset\wp-includes\js\imagesloaded.min55a0.js" />
@@ -7560,8 +7424,6 @@
     <Content Include="Vendor\UserAsset\wp-content\plugins\revslider\public\assets\fonts\revicons\revicons90c6.eot" />
     <Content Include="Vendor\UserAsset\wp-content\plugins\revslider\public\assets\fonts\revicons\revicons90c6.ttf" />
     <Content Include="Vendor\UserAsset\wp-content\plugins\revslider\public\assets\fonts\revicons\revicons90c6.woff" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_16-1-214x368.1a.delayed" />
-    <Content Include="Vendor\UserAsset\wp-content\uploads\2019\04\img_19-1-214x368.1d.delayed" />
     <Content Include="Vendor\UserAsset\wp-json\oembed\1.0\embed0a0c" />
     <Content Include="Vendor\UserAsset\wp-json\oembed\1.0\embed0f08" />
     <Content Include="Vendor\UserAsset\wp-json\oembed\1.0\embed0f79" />
@@ -7749,7 +7611,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.9.10\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.9.10\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.9.10\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.9.10\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets'))" />
   </Target>
+  <Import Project="packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.9.10\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets" Condition="Exists('packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.9.10\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

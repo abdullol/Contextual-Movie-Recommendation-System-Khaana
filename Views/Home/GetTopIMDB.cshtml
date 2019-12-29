@@ -53,7 +53,7 @@
                                                                                 </div>
                                                                                 <div class="amy-movie-item-meta">
                                                                                     <span class="amy-movie-field-mpaa">G</span>
-                                                                                    <span class="amy-movie-field-duration"><i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.Director)</span>
+                                                                                    <span class="amy-movie-field-duration"><i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.MovieDuration)</span>
                                                                                 </div>
 
 
@@ -92,7 +92,6 @@
                                                                                 <a class="amy-btn-icon-text link-detail" href="@Url.Action("getMovie", "Home", new { id = item.Id })">
                                                                                     <i class="fa fa-info"></i>Detail
                                                                                 </a>
-                                                                                <span class="amy-btn-showtimes showtime-btn">Showtime</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
