@@ -113,6 +113,16 @@ namespace Movie_Recommendation_System.Areas.Admin.Controllers
         {
             Movies movies = db.Movies.Find(id);
             db.Movies.Remove(movies);
+            List<Watchlist> _watchList = db.Watchlists.Where(r => r.movieId == id).ToList();
+            foreach (var item in _watchList)
+            {
+                db.Watchlists.Remove(item);
+            }
+            List<CinemaShowtimes> cs = db.CinemaShowtimes.Where(r => r.MoviesId == id).ToList();
+            foreach (var item in cs)
+            {
+                db.CinemaShowtimes.Remove(item);
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -8,7 +8,6 @@ namespace Movie_Recommendation_System.Models
     public class UserContext
     {
         public int id { get; set; }
-        public string geoplugin_city { get; set; }
-        public string geoplugin_region { get; set; }
+        public string city { get; set; }
     }
 }

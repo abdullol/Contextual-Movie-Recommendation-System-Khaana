@@ -18,7 +18,7 @@ namespace Movie_Recommendation_System.Areas.Admin.Controllers
         {
             using (ApplicationDbContext _context = new ApplicationDbContext())
             {
-                return View(_context.CinemaShowtimes.Include("CinemaInstance").ToList());
+                return View(_context.CinemaShowtimes.Include("MoviesInstance").Include("CinemaInstance").ToList());
             }
         }
         [HttpGet]

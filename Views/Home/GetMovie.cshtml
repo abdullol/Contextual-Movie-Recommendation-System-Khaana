@@ -7,6 +7,15 @@
 
 <section class="main-content amy-movie single-movie layout-right no-banner">
     <div class="container">
+        Search Movies:
+        @using (Html.BeginForm("Search", "Home"))
+        {
+            <p>
+
+                <input name="Search" id="Search" />
+                <input type="submit" value="Search" />
+            </p>
+        }
         <div class="row">
             <div class="col-md-8">
                 <div class="page-content">

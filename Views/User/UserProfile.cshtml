@@ -10,6 +10,15 @@
 
 </style>
 <div class="container">
+    Search Movies:
+    @using (Html.BeginForm("Search", "Home"))
+    {
+        <p>
+
+            <input name="Search" id="Search" />
+            <input type="submit" value="Search" />
+        </p>
+    }
     <div class="row">
         <div class="col-md-5 top">
             <div class="col-md-10">
@@ -96,9 +105,6 @@
                                                                     <div class="amy-movie-item-button">
                                                                         <a class="amy-btn-icon-text link-detail" href="@Url.Action("getMovie", "Home", new { id = item.movieId})">
                                                                             <i class="fa fa-info"></i>Detail
-                                                                        </a>
-                                                                        <a style="background-color:orangered; padding:10px; color:white; text-align:left" href="@Url.Action("DeleteWatchlist", "Home", new { id=item.Id  })">
-                                                                            <i></i>Delete
                                                                         </a>
                                                                     </div>
                                                                 </div>

@@ -16,6 +16,15 @@
     </section>
     <section class="main-content page-layout-right">
         <div class="container">
+            Search Movies:
+            @using (Html.BeginForm("Search", "Home"))
+            {
+                <p>
+
+                    <input name="Search" id="Search" />
+                    <input type="submit" value="Search" />
+                </p>
+            }
             <div class="row">
 
 
@@ -122,9 +131,9 @@
                 </div>
             </div>
             @*<div class="row">
-                    <div class="col-md-12">
-                    </div>
-                </div>*@
+            <div class="col-md-12">
+            </div>
+        </div>*@
         </div>
     </section>
 

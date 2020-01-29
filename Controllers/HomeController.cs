@@ -2,6 +2,7 @@
 using Movie_Recommendation_System.Areas.Admin.Models;
 using Movie_Recommendation_System.Areas.Admin.ViewModels;
 using Movie_Recommendation_System.Models;
+using Movie_Recommendation_System.ViewModels;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Movie_Recommendation_System.Controllers
         {
             List<CinemaShowtimes> _showTimesList = new List<CinemaShowtimes>();
 
-            //http://www.geoplugin.net
+
 
             string _userLocation = GetUserCurrentLocation();
 
@@ -39,40 +40,23 @@ namespace Movie_Recommendation_System.Controllers
             obj.topIMDB = topIMDB.Take(11).ToList();
 
             //starting a batch file which contains algorithm
-            string path = @"D:/Work/Movie_Recommendation_System/mrs/runAlgo.bat";
-            ThreadPool.QueueUserWorkItem(o =>
-            {
-                var user = User.Identity.GetUserId();
+            var user = User.Identity.GetUserId();
+            Process proc = GetProcessSettings();
+            proc.Start();
+            proc.WaitForExit();
 
-                var proc = new Process
+            string line = string.Empty;
+            //reading file till end
+            while (!proc.StandardOutput.EndOfStream)
+            {
+                line = proc.StandardOutput.ReadLine();
+                int con;
+                if (Int32.TryParse(line, out con))
                 {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = path,
-                        Arguments = User.Identity.GetUserId(),
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        CreateNoWindow = true
-                    }
-                };
-                proc.Start();
-                string line = string.Empty;
-                //reading file till end
-                while (!proc.StandardOutput.EndOfStream)
-                {
-                    line = proc.StandardOutput.ReadLine();
-                    int con;
-                    if (Int32.TryParse(line, out con))
-                    {
-                        Movies.Add(db.Movies.Find(con));
-                    }
+                    Movies.Add(db.Movies.Find(con));
                 }
-            });
-
-            for (int i = 0; i < 10; ++i)
-            {
-                Task.WaitAll(Task.Delay(2000));
             }
+
             if (Movies.Count == 0 || !Request.IsAuthenticated)
             {
                 Random rand = new Random();
@@ -97,23 +81,23 @@ namespace Movie_Recommendation_System.Controllers
                 foreach (var item in obj.recMovies)
                 {
                     var _contextualItem = db.CinemaShowtimes.Where(t => t.MoviesId == item.Id &&
-                    string.Compare(t.Location, _userLocation, true) == 0 &&
-                    t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
-                     t.ShowDay.Day >= _currentDay).ToList();
+                    string.Compare(t.Location, _userLocation, true) == 0).ToList();
 
                     filteredData.AddRange(_contextualItem);
                 }
 
                 obj.inCinema = filteredData.ToList();
+
             }
             else
             {
                 obj.inCinema = db.CinemaShowtimes.Include("MoviesInstance").Take(11).ToList();
             }
 
-            if (obj.inCinema.Count <= 0)
+            if (obj.inCinema.Count == 0)
             {
-                return View(obj.inCinema);
+                obj.inCinema = db.CinemaShowtimes.Include("MoviesInstance").Take(11).ToList();
+                return View(obj);
             }
 
             if (obj.inCinema.Count > 0 && obj.inCinema.Count < 5)
@@ -122,6 +106,23 @@ namespace Movie_Recommendation_System.Controllers
             }
 
             return View(obj);
+        }
+
+        private Process GetProcessSettings()
+        {
+            string path = @"D:/Work/Movie_Recommendation_System/mrs/runAlgo.bat";
+
+            return new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = path,
+                    Arguments = User.Identity.GetUserId(),
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
         }
 
         private static void GetContextualFeature(out int year, out int month, out int _currentDay)
@@ -135,7 +136,9 @@ namespace Movie_Recommendation_System.Controllers
         private static string GetUserCurrentLocation()
         {
             //Reading the user's current location
-            string _strTestUrl = String.Format("http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx");
+
+            string _strTestUrl = String.Format("https://api.ipdata.co/72.255.54.212?api-key=459e1ae1099e5a44b75e19c115415e36b4cb76d81f7f68d51eb7e658");
+            //string _strTestUrl = String.Format("http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx");
             WebRequest _requestObjGet = WebRequest.Create(_strTestUrl);
             _requestObjGet.Method = "GET";
             HttpWebResponse _responseObjGet = null;
@@ -155,8 +158,9 @@ namespace Movie_Recommendation_System.Controllers
 
             UserContext objList = (UserContext)serializer.Deserialize(_strResultTest, typeof(UserContext));
 
-            string _userLocation = objList.geoplugin_city;
+            string _userLocation = objList.city;
             return _userLocation;
+            
         }
 
         public ActionResult About()
@@ -273,12 +277,28 @@ namespace Movie_Recommendation_System.Controllers
 
             return Json("<br/>You Rated " + r + " star(s), Thanks");
         }
+        public ActionResult Search(string Search) {
+            return RedirectToAction("Movies", new
+            {
+                Sch = Search
+            });
+        }
 
-        public ActionResult Movies(int? page)
+        public ActionResult Movies(int? page,string Sch)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                return View(db.Movies.ToList().ToPagedList(page ?? 1, 10));
+                if (Sch == null)
+                {
+                    return View(db.Movies.ToList().ToPagedList(page ?? 1, 10));
+
+                }
+                else {
+                    List<Movies> movs = new List<Movies>();
+                    movs = db.Movies.Where(r => r.MovieName.Contains(Sch)).ToList();
+                    return View(movs.ToPagedList(page ?? 1, 10));
+                }
+
             }
         }
 
@@ -290,34 +310,52 @@ namespace Movie_Recommendation_System.Controllers
             }
         }
 
-        public ActionResult GetShowtimes()
+        //public ActionResult showTimesGet(string city)
+        //{
+        //    int year, month, _currentDay;
+        //    GetContextualFeature(out year, out month, out _currentDay);
+        //    if (city == null)
+        //    {
+        //        string _userLocation = GetUserCurrentLocation();
+
+        //        List<CinemaShowtimes> cs = db.CinemaShowtimes.Where(t =>t.MoviesId.tol && string.Compare(t.Location, _userLocation, true) == 0 &&
+        //          t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
+        //          t.ShowDay.Day >= _currentDay).Include("MoviesInstance").Include("CinemaInstance").ToList();
+        //    }
+        //    else
+        //    {
+        //        List<CinemaShowtimes> cs = db.CinemaShowtimes.Where(t => string.Compare(t.Location, city, true) == 0 &&
+        //          t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
+        //          t.ShowDay.Day >= _currentDay).Include("MoviesInstance").Include("CinemaInstance").ToList();
+        //    }
+        //    return Content("ShowTimes Returned");
+        //}
+        public ActionResult GetShowtimesList(string cs)
         {
-            var _movieList = db.Movies.ToList();
-            string _userLocation = GetUserCurrentLocation();
+            return RedirectToAction("GetShowtimes", new
+            {
+                city = cs
+            });
+        }
+        public ActionResult GetShowtimes(string city)
+        {
             int year, month, _currentDay;
             GetContextualFeature(out year, out month, out _currentDay);
-
-            List<CinemaShowtimes> _fllterList = new List<CinemaShowtimes>();
-            homePageVM _homepageVM = new homePageVM();
-
-            foreach (var item in _movieList)
+            List<CinemaShowtimes> cs = new List<CinemaShowtimes>();
+            if (city != null)
             {
-                var _filteredData = db.CinemaShowtimes.Where(t => t.MoviesId == item.Id &&
-                  string.Compare(t.Location, _userLocation, true) == 0 &&
-              t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
-              t.ShowDay.Day >= _currentDay).Include("MoviesInstance").Include("CinemaInstance").ToList();
-
-                _fllterList.AddRange(_filteredData);
+                cs = db.CinemaShowtimes.Where(t => string.Compare(t.Location, city, true) == 0).Include("MoviesInstance").Include("CinemaInstance").ToList();
             }
+            else
+            {
+                string _userLocation = GetUserCurrentLocation();
 
-            _homepageVM.inCinema = _fllterList.ToList();
+                cs = db.CinemaShowtimes.Where(t => string.Compare(t.Location.ToLower(), _userLocation.ToLower(), true) == 0).Include("MoviesInstance").Include("CinemaInstance").ToList();
 
-            //var _contextualItem = db.CinemaShowtimes.Where(t => t.MoviesId == item.Id &&
-            //string.Compare(t.Location, _userLocation, true) == 0 &&
-            //t.ShowDay.Year > year ? t.ShowDay.Month >= month || t.ShowDay.Month <= month : t.ShowDay.Year == year ? t.ShowDay.Month >= month : t.ShowDay.Month == 0 &&
-            //t.ShowDay.Day >= _currentDay).ToList();
+                
 
-            return View(_homepageVM);
+            }
+            return View(cs.ToList());
         }
 
         public ActionResult GetMovie(int id)

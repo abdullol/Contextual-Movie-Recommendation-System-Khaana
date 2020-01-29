@@ -1,7 +1,7 @@
 ﻿{
-  "name": "ASP.NET MVC Progressive Web App",
-  "short_name": "PWA App",
-  "description": "Implementing PWA behavior into existing ASP.NET MVC 5 app.",
+  "name": "KHAANA Inc.",
+  "short_name": "MOVIES-KHAANA",
+  "description": "YOUR CHOICE FIRST",
   "theme_color": "#2196f3",
   "background_color": "#2196f3",
   "display": "standalone",

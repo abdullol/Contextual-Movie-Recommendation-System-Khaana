@@ -16,6 +16,9 @@
                     @Html.DisplayNameFor(model => model.CinemaInstance.CinemaName)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.MoviesInstance.MovieName)
+                </th>
+                <th>
                     Edit/Details/Delete
                 </th>
             </tr>
@@ -25,6 +28,7 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(model => item.CinemaInstance.CinemaName)</td>
+                        <td>@Html.DisplayFor(model => item.MoviesInstance.MovieName)</td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", null, new { id = item.Id }, new { @class = "btn btn-primary" }) |
                             @Html.ActionLink("Details", "Details", null, new { id = item.Id }, new { @class = "btn btn-warning" }) |

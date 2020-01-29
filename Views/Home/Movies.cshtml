@@ -16,6 +16,15 @@
     </section>
     <section class="main-content page-layout-right">
         <div class="container">
+            Search Movies:
+            @using (Html.BeginForm("Search", "Home"))
+            {
+                <p>
+
+                    <input name="Search" id="Search" />
+                    <input type="submit" value="Search" />
+                </p>
+            }
             <div class="row">
 
 
@@ -45,7 +54,7 @@
                                                                         <div class="amy-movie-item-back-inner">
                                                                             <div class="amy-movie-item-content">
                                                                                 <h3 class="amy-movie-field-title"><a href="@Url.Action("getMovie", "Home", new { id = item.Id })">@Html.DisplayFor(modelItem => item.MovieName)</a></h3>
-                                                                                
+
                                                                                 <div class="amy-movie-item-meta">
                                                                                     <span class="amy-movie-field-mpaa">@Html.DisplayFor(modelItem => item.PGRating)</span>
                                                                                     <span class="amy-movie-field-duration"><i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.MovieDuration)</span>
@@ -86,12 +95,12 @@
                                                                                 <a class="amy-btn-icon-text link-detail" href="@Url.Action("getMovie", "Home", new { id = item.Id })">
                                                                                     <i class="fa fa-info"></i>Detail
                                                                                 </a>
-                                                                                
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         }
 
@@ -119,9 +128,9 @@
                 </div>
             </div>
             @*<div class="row">
-                    <div class="col-md-12">
-                    </div>
-                </div>*@
+            <div class="col-md-12">
+            </div>
+        </div>*@
         </div>
     </section>
 

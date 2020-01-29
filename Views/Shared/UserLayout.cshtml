@@ -9,6 +9,9 @@
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="xmlrpc.php">
 
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2196f3" />
+
     @*Website logo*@
     <link rel="shortcut icon" @Url.Action("~/256-256.ico") type="image/x-icon" />
 
@@ -200,7 +203,7 @@
                         <div id="amy-site-logo">
 
                             <a href="@Url.Action("Index","Home")">
-                                <img class="amy-logo amy-logo1x vcenter" src="~/Vendor/UserAsset/wp-content/uploads/2019/04/img_66.png" alt="Demo" style="height:70px; width:150px">
+                                <img class="amy-logo amy-logo1x vcenter" src="~/Vendor/UserAsset/wp-content/uploads/2019/04/img_66.png" alt="Demo" style="height:55px; width:150px">
                             </a>
 
                         </div>
@@ -420,7 +423,7 @@
     <script type="text/javascript">
         /* <![CDATA[ */
         var mc4wp_forms_config = [];
-/* ]]> */
+        /* ]]> */
     </script>
     <script type="text/javascript" src="~/Vendor/UserAsset/wp-content/plugins/mailchimp-for-wp/assets/js/forms-api.mineb11.js?ver=4.4"></script>
     <!--[if lte IE 9]>
@@ -430,6 +433,14 @@
 
     <iframe id="apiproxy46045bfcd3b5ba388edf56b7192e846063832f270.3628546277" name="apiproxy46045bfcd3b5ba388edf56b7192e846063832f270.3628546277" src="https://content.googleapis.com/static/proxy.html?usegapi=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.y5hhWjOdu80.O%2Fam%3DwQE%2Fd%3D1%2Frs%3DAGLTcCNsKzxWFhezE2KkFP7auTmVDBiNEQ%2Fm%3D__features__#parent=file%3A%2F%2F&amp;rpctoken=305158222" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px; display: none;"></iframe>
     @RenderSection("Scripts", required: false)
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/serviceworker.js')
+                .then(function () { console.log('Service Worker Registered'); });
+        }
+    </script>
 
 </body>
 </html>
